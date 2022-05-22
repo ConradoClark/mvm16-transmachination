@@ -16,11 +16,15 @@ public class CharacterAnimationController : MonoBehaviour
     public TimerScriptable GameTimer;
 
     private LichtPhysics _physics;
-    private bool _afterJump;
+    private BasicMachinery<object> _machinery;
+
+    private Stack<bool> _shootStack;
 
     private void Awake()
     {
         _physics = this.GetLichtPhysics();
+        _machinery = DefaultMachinery.GetDefaultMachinery();
+        _shootStack = new Stack<bool>();
     }
 
     private void OnDisable()
@@ -39,6 +43,8 @@ public class CharacterAnimationController : MonoBehaviour
 
         this.StopObservingEvent<LichtPlatformerJumpController.LichtPlatformerJumpEvents, LichtPlatformerJumpController.LichtPlatformerJumpEventArgs>(
             LichtPlatformerJumpController.LichtPlatformerJumpEvents.OnJumpEnd, OnJumpEnd);
+
+        this.StopObservingEvent<WeaponEvents, WeaponEventArgs>(WeaponEvents.OnShoot, OnShoot);
     }
 
     private void OnEnable()
@@ -58,7 +64,28 @@ public class CharacterAnimationController : MonoBehaviour
         this.ObserveEvent<LichtPlatformerJumpController.LichtPlatformerJumpEvents, LichtPlatformerJumpController.LichtPlatformerJumpEventArgs>(
             LichtPlatformerJumpController.LichtPlatformerJumpEvents.OnJumpEnd, OnJumpEnd);
 
-        DefaultMachinery.GetDefaultMachinery().AddBasicMachine(HandleOnGround());
+        this.ObserveEvent<WeaponEvents, WeaponEventArgs>(WeaponEvents.OnShoot, OnShoot);
+
+       _machinery.AddBasicMachine(HandleOnGround());
+    }
+
+    private void OnShoot(WeaponEventArgs obj)
+    {
+        if (obj.Source != Target) return;
+        Animator.SetBool("IsShooting", true);
+
+        _shootStack.Push(true);
+        _machinery.AddBasicMachine(EndShooting());
+    }
+
+    private IEnumerable<IEnumerable<Action>> EndShooting()
+    {
+        yield return TimeYields.WaitMilliseconds(GameTimer.Timer, 100);
+        _shootStack.Pop();
+        if (_shootStack.Count == 0)
+        {
+            Animator.SetBool("IsShooting", false);
+        }
     }
 
     private IEnumerable<IEnumerable<Action>> HandleOnGround()
@@ -83,7 +110,7 @@ public class CharacterAnimationController : MonoBehaviour
             {
                 Animator.SetBool("OnGround", true);
             }
-            
+
             yield return TimeYields.WaitOneFrameX;
         }
     }
@@ -112,11 +139,11 @@ public class CharacterAnimationController : MonoBehaviour
 
     private void AdjustDirection(LichtPlatformerMoveController.LichtPlatformerMoveEventArgs obj)
     {
-        if (obj.Direction>0)
+        if (obj.Direction > 0)
         {
             Animator.SetBool("FacingRight", true);
         }
-        else if (obj.Direction <0)
+        else if (obj.Direction < 0)
         {
             Animator.SetBool("FacingRight", false);
         }
@@ -125,7 +152,6 @@ public class CharacterAnimationController : MonoBehaviour
     {
         if (obj.Source.Target != Target) return;
         Animator.SetBool("IsJumping", false);
-        _afterJump = true;
     }
 
     private void OnJumpStart(LichtPlatformerJumpController.LichtPlatformerJumpEventArgs obj)
