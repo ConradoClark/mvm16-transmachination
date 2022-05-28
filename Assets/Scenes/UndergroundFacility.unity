@@ -1312,8 +1312,11 @@ MonoBehaviour:
   BlasterPool: {fileID: 1997286562}
   Offset: {x: 0, y: 0}
   CharacterPhysicsObject: {fileID: 1364386154}
+  MoveController: {fileID: 1364386153}
+  JumpController: {fileID: 1364386155}
   ProjectileSpeed: 5
   CharacterForm: {fileID: 11400000, guid: 534097790d319b1438b8ce4d31c94e05, type: 2}
+  RecoilStrength: 0.025
 --- !u!1 &400906868
 GameObject:
   m_ObjectHideFlags: 0
@@ -3026,7 +3029,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 22
   m_Sprite: {fileID: 21300000, guid: 44ee0633bafa13147bbe240319a08c88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
