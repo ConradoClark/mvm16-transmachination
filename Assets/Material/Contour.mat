@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Character
+  m_Name: Contour
   m_Shader: {fileID: 4800000, guid: 8cc039c0cb09e8a43a8aa7db5490fcc6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -77,7 +77,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HAutoScroll: 0
-    - _Hue: 26
+    - _Hue: 19
     - _InvertInput: 0
     - _InvertOutput: 0
     - _LevelsBGamma: 1
@@ -110,15 +110,15 @@ Material:
     - _LevelsRGamma: 1
     - _LevelsRMaxInput: 255
     - _LevelsRMinInput: 0
-    - _LightInfluence: 0.709
-    - _LightStrength: 4.93
-    - _Luminance: -0.63
+    - _LightInfluence: 0.4
+    - _LightStrength: 5.44
+    - _Luminance: 0.21
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0.272
+    - _Opacity: 0.639
     - _Parallax: 0.02
-    - _Saturation: -0.74
+    - _Saturation: -0.38
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

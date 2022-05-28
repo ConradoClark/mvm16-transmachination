@@ -14,10 +14,11 @@ public class CharacterAnimationController : MonoBehaviour
     public Animator Animator;
     public LichtPhysicsObject Target;
     public TimerScriptable GameTimer;
+    public SpriteRenderer[] Parts;
+
 
     private LichtPhysics _physics;
     private BasicMachinery<object> _machinery;
-
     private Stack<bool> _shootStack;
 
     private void Awake()
@@ -142,10 +143,19 @@ public class CharacterAnimationController : MonoBehaviour
         if (obj.Direction > 0)
         {
             Animator.SetBool("FacingRight", true);
+            foreach (var spr in Parts)
+            {
+                spr.flipX = false;
+            }
+
         }
         else if (obj.Direction < 0)
         {
             Animator.SetBool("FacingRight", false);
+            foreach (var spr in Parts)
+            {
+                spr.flipX = true;
+            }
         }
     }
     private void OnJumpEnd(LichtPlatformerJumpController.LichtPlatformerJumpEventArgs obj)
