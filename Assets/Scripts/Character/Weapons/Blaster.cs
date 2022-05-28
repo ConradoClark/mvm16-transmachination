@@ -74,10 +74,10 @@ public class Blaster : MonoBehaviour
                 JumpController.BlockMovement(this);
                 if (BlasterPool.TryGetFromPool(out var obj))
                 {
-                    obj.Component.transform.position = transform.position + (Vector3)Offset;
+                    obj.Component.transform.position = transform.position + new Vector3(Offset.x * MoveController.LatestDirection, Offset.y);
                     obj.Direction =
                         new Vector2(MoveController.LatestDirection,
-                            -0.1f + Random.value * 0.2f);
+                            -0.05f + Random.value * 0.15f);
                     obj.Speed = ProjectileSpeed;
 
                     _defaultMachinery.AddBasicMachine(Recoil(new Vector2(obj.Direction.x,0)));
