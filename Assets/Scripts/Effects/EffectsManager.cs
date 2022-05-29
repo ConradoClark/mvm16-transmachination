@@ -15,6 +15,7 @@ public class EffectsManager : MonoBehaviour
     }
 
     public EffectDefinition[] Effects;
+    public HitNumberPool HitNumberPool;
 
     public PrefabPool GetEffect(string effectName)
     {

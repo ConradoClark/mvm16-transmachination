@@ -1,13 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Licht.Impl.Orchestration;
-using Licht.Impl.Time;
 using Licht.Interfaces.Time;
 using Licht.Unity.Builders;
 using Licht.Unity.Extensions;
 using Licht.Unity.Physics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -22,6 +21,7 @@ public class Enemy : MonoBehaviour
     private float _defaultOpacity;
     private bool _flashing;
     private bool _resetFlash;
+    private EffectsManager _effectsManager;
 
     private void Awake()
     {
@@ -30,13 +30,15 @@ public class Enemy : MonoBehaviour
         _gameTimer = DefaultGameTimer.GetTimer();
         _defaultLuminance = SpriteRenderer.material.GetFloat("_Luminance");
         _defaultOpacity = SpriteRenderer.material.GetFloat("_Opacity");
+        _effectsManager = EffectsManager.GetInstance();
     }
 
     private void OnEnable()
     {
         _defaultMachinery.AddBasicMachine(CheckCollision());
     }
-
+    
+    // write this in a better way: not all enemies will flash the same way
     private IEnumerable<IEnumerable<Action>> Flash()
     {
         if (_flashing)
@@ -82,6 +84,13 @@ public class Enemy : MonoBehaviour
         {
             if (_physics.CheckCollision(Collider, out var trigger) && trigger.Actor.TryGetCustomObject<WeaponDamage>(out var weaponDamage))
             {
+                if (_effectsManager.HitNumberPool.TryGetFromPool(out var effect))
+                {
+                    // write this in a better way (use events maybe?)
+                    effect.SetHitValue(weaponDamage.Damage.DamageAmount + Random.Range(-1,2));
+                    effect.transform.position = trigger.Target.transform.position + new Vector3(0, 0.15f) +
+                                                (Vector3) Random.insideUnitCircle * 0.25f;
+                }
                 _defaultMachinery.AddBasicMachine(Flash());
                 yield return TimeYields.WaitMilliseconds(_gameTimer, 50);
             }
