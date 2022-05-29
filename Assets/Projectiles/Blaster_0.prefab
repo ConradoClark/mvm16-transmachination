@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4246055691520313475}
   - component: {fileID: 4246055691520313474}
   - component: {fileID: 4246055691520313472}
+  - component: {fileID: 2168080280990055753}
   m_Layer: 0
   m_Name: Blaster_0
   m_TagString: Untagged
@@ -167,6 +168,20 @@ MonoBehaviour:
   Speed: 0
   MaximumTimeInMs: 3000
   SpriteRenderer: {fileID: 4246055691520313476}
+--- !u!114 &2168080280990055753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246055691520313478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a749a0b958d7345a040f56a73c531a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 4246055691520313475}
+  Damage: {fileID: 11400000, guid: 94c81eb7e4560bd4383070a67ba8e173, type: 2}
 --- !u!1 &4246055692859395936
 GameObject:
   m_ObjectHideFlags: 0

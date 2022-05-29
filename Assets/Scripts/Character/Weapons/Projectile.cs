@@ -65,7 +65,6 @@ public class Projectile : EffectPoolable
     {
         if (!_physics.GetCollisionState(PhysicsObject).Horizontal.TriggeredHit) yield break;
 
-
         if (!string.IsNullOrWhiteSpace(EffectOnCollision))
         {
             var pool = _effectsManager.GetEffect(EffectOnCollision);

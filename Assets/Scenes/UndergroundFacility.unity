@@ -4400,6 +4400,7 @@ GameObject:
   - component: {fileID: 1076852699}
   - component: {fileID: 1076852698}
   - component: {fileID: 1076852700}
+  - component: {fileID: 1076852701}
   m_Layer: 7
   m_Name: Turret1
   m_TagString: Untagged
@@ -4466,7 +4467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076852697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.98, y: -2.88, z: 0}
+  m_LocalPosition: {x: 18.98, y: -2.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2077583425}
@@ -4499,6 +4500,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7114067, y: 0.56585264}
   m_EdgeRadius: 0
+--- !u!114 &1076852701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076852697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd88765627599a64bba45d50c46e8e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitPoints: 0
+  SpriteRenderer: {fileID: 1076852698}
+  Collider: {fileID: 1076852700}
 --- !u!1 &1078102817
 GameObject:
   m_ObjectHideFlags: 0
@@ -6182,7 +6198,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6193,7 +6209,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.9}
+  m_Size: {x: 0.4, y: 0.85}
   m_EdgeRadius: 0
 --- !u!4 &1609048315
 Transform:
