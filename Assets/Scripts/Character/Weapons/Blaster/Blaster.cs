@@ -86,9 +86,12 @@ public class Blaster : MonoBehaviour
                         new WeaponEventArgs { Source = CharacterPhysicsObject, Projectile = obj });
                 }
 
+                yield return TimeYields.WaitOneFrameX;
+                JumpController.UnblockMovement(this);
+
                 yield return TimeYields.WaitMilliseconds(DefaultGameTimer.GetTimer(), CooldownInMs);
                 MoveController.UnblockMovement(this);
-                JumpController.UnblockMovement(this);
+                
                 
             }
             else yield return TimeYields.WaitOneFrameX;

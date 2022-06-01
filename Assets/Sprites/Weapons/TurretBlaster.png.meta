@@ -1,22 +1,34 @@
 fileFormatVersion: 2
-guid: f5eeea1a0b553f046b6fdd5dd7d98fbf
+guid: b3b5ffb66b0ef4f458653c1577d0dbfd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7660184882050770378
-    second: Turret1_Contour_Stand_0
+      213: -5023386519721081101
+    second: TurretBlaster_0
   - first:
-      213: -8536978998122966357
-    second: Turret1_Contour_Stand_1
+      213: 1155204999278480720
+    second: TurretBlaster_1
   - first:
-      213: -5828836533848203817
-    second: Turret1_Contour_Stand_2
+      213: -3275428700951167078
+    second: TurretBlaster_2
   - first:
-      213: 7242011648819746157
-    second: Turret1_Contour_Stand_3
+      213: 2191625536955153989
+    second: TurretBlaster_3
   - first:
-      213: -3701245633713855014
-    second: Turret1_Contour_Stand_4
+      213: -4206455026974239025
+    second: TurretBlaster_4
+  - first:
+      213: 1945935595902645213
+    second: TurretBlaster_5
+  - first:
+      213: 6745270236246756239
+    second: TurretBlaster_6
+  - first:
+      213: -8797075210210818064
+    second: TurretBlaster_7
+  - first:
+      213: -9121162713675730200
+    second: TurretBlaster_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,13 +130,139 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Turret1_Contour_Stand_0
+      name: TurretBlaster_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f60a8a4398594ab0800000000000000
+      internalID: -5023386519721081101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TurretBlaster_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05dcfb883dc180010800000000000000
+      internalID: 1155204999278480720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TurretBlaster_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9fbfa053f65b82d0800000000000000
+      internalID: -3275428700951167078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TurretBlaster_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54ef2ea60d73a6e10800000000000000
+      internalID: 2191625536955153989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TurretBlaster_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc65b81907baf95c0800000000000000
+      internalID: -4206455026974239025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TurretBlaster_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd3b09d4d1a510b10800000000000000
+      internalID: 1945935595902645213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TurretBlaster_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +270,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63adb876f6e81b590800000000000000
-      internalID: -7660184882050770378
+      spriteID: f8bc089ba830c9d50800000000000000
+      internalID: 6745270236246756239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Turret1_Contour_Stand_1
+      name: TurretBlaster_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f74df884b28ae580800000000000000
+      internalID: -8797075210210818064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TurretBlaster_8
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,71 +312,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba219e105de868980800000000000000
-      internalID: -8536978998122966357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Turret1_Contour_Stand_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7dd98221e00db1fa0800000000000000
-      internalID: -5828836533848203817
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Turret1_Contour_Stand_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d65542b893bc08460800000000000000
-      internalID: 7242011648819746157
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Turret1_Contour_Stand_4
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad52508c4b882acc0800000000000000
-      internalID: -3701245633713855014
+      spriteID: 8e2f1d086de1b6180800000000000000
+      internalID: -9121162713675730200
       vertices: []
       indices: 
       edges: []

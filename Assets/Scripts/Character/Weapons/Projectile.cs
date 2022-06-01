@@ -24,7 +24,7 @@ public class Projectile : EffectPoolable
     {
         _machinery = DefaultMachinery.GetDefaultMachinery();
         _physics = this.GetLichtPhysics();
-        _effectsManager = EffectsManager.GetInstance();
+        _effectsManager = EffectsManager.Instance();
     }
     public override void OnActivation()
     {   

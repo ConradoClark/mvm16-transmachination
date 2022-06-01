@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Source: {fileID: 4246055691520313475}
+  SourceType: 0
   Damage: {fileID: 11400000, guid: 94c81eb7e4560bd4383070a67ba8e173, type: 2}
 --- !u!1 &4246055692859395936
 GameObject:
@@ -224,9 +225,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9900059, g: 0.990566, b: 0.83637416, a: 1}
-  m_Intensity: 1.2
-  m_Range: 6
+  m_Color: {r: 0.65882593, g: 0.990566, b: 0.5934051, a: 1}
+  m_Intensity: 2
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

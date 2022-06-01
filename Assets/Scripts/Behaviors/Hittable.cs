@@ -6,7 +6,7 @@ using Licht.Unity.Extensions;
 using Licht.Unity.Physics;
 using UnityEngine;
 
-public class Hittable<T> : MonoBehaviour where T : class
+public abstract class Hittable<T> : MonoBehaviour where T : class
 {
     public Collider2D Collider;
     public float TriggerFrequency;
@@ -39,7 +39,8 @@ public class Hittable<T> : MonoBehaviour where T : class
     {
         while (isActiveAndEnabled)
         {
-            if (_physics.CheckCollision(Collider, out var trigger) && trigger.Actor.TryGetCustomObject<T>(out var damageSource))
+            if (_physics.CheckCollision(Collider, out var trigger) && trigger.Actor.TryGetCustomObject<T>(out var damageSource) 
+                && ValidateHitSource(damageSource))
             {
                 OnHit?.Invoke(new HitEventArgs()
                 {
@@ -51,4 +52,6 @@ public class Hittable<T> : MonoBehaviour where T : class
             yield return TimeYields.WaitOneFrameX;
         }
     }
+
+    public abstract bool ValidateHitSource(T hitSource);
 }

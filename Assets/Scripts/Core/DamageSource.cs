@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class DamageSource : MonoBehaviour
 {
+    public enum DamageSourceType
+    {
+        Player,
+        Enemy
+    }
+
     public LichtPhysicsObject Source;
+    public DamageSourceType SourceType;
     public ScriptableDamage Damage;
 
     private void Awake()

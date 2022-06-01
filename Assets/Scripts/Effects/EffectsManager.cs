@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Licht.Unity.Objects;
 using Licht.Unity.Pooling;
 using UnityEngine;
 
-public class EffectsManager : MonoBehaviour
+public class EffectsManager : SceneObject<EffectsManager>
 {
     [Serializable]
     public struct EffectDefinition
@@ -20,11 +21,5 @@ public class EffectsManager : MonoBehaviour
     public PrefabPool GetEffect(string effectName)
     {
         return Effects.FirstOrDefault(eff => eff.EffectName == effectName).Pool;
-    }
-
-    public static EffectsManager GetInstance()
-    {
-        var obj = FindObjectOfType<EffectsManager>();
-        return obj;
     }
 }

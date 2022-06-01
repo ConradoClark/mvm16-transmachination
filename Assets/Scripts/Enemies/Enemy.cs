@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour, IResettable
         _gameTimer = DefaultGameTimer.GetTimer();
         _defaultLuminance = SpriteRenderer.material.GetFloat("_Luminance");
         _defaultOpacity = SpriteRenderer.material.GetFloat("_Opacity");
-        _effectsManager = EffectsManager.GetInstance();
+        _effectsManager = EffectsManager.Instance();
         _currentHitPoints = HitPoints;
     }
 
