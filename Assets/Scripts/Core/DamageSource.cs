@@ -1,7 +1,7 @@
 using Licht.Unity.Physics;
 using UnityEngine;
 
-public class WeaponDamage : MonoBehaviour
+public class DamageSource : MonoBehaviour
 {
     public LichtPhysicsObject Source;
     public ScriptableDamage Damage;

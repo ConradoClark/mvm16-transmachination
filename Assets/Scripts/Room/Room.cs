@@ -8,12 +8,12 @@ public class Room : MonoBehaviour
 
     private void OnEnable()
     {
-        RoomManager.Instance.AddToManager(this);
+        RoomManager.Instance().AddToManager(this);
     }
 
     private void OnDisable()
     {
-        if (RoomManager.Instance == null) return;
-        RoomManager.Instance.RemoveFromManager(this);
+        if (RoomManager.Instance() == null) return;
+        RoomManager.Instance().RemoveFromManager(this);
     }
 }

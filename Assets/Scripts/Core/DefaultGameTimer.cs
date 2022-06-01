@@ -5,13 +5,12 @@ using Licht.Interfaces.Time;
 using Licht.Unity.Objects;
 using UnityEngine;
 
-public class DefaultGameTimer : MonoBehaviour
+public class DefaultGameTimer : SceneObject<DefaultGameTimer>
 {
     public TimerScriptable TimerRef;
 
     public static ITime GetTimer()
     {
-        var obj = FindObjectOfType<DefaultGameTimer>();
-        return obj.TimerRef.Timer;
+        return Instance().TimerRef.Timer;
     }
 }

@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Licht.Unity.Objects;
 using UnityEngine;
 
-public class RoomManager : ManagerObject<RoomManager>
+public class RoomManager : SceneObject<RoomManager>
 {
     private readonly Lazy<Dictionary<RoomDefinition, Room>> _rooms = new Lazy<Dictionary<RoomDefinition, Room>>(() => new Dictionary<RoomDefinition, Room>());
 

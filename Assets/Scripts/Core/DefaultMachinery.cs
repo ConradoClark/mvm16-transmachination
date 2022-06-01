@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Licht.Impl.Orchestration;
 using Licht.Unity.Objects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class DefaultMachinery : MonoBehaviour
+public class DefaultMachinery : SceneObject<DefaultMachinery>
 {
     public BasicMachineryScriptable MachineryRef;
 
     public static BasicMachinery<object> GetDefaultMachinery()
     {
-        var obj = FindObjectOfType<DefaultMachinery>();
-        return obj.MachineryRef.Machinery;
+        return Instance().MachineryRef.Machinery;
     }
 }
