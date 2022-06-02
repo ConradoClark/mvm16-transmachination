@@ -11,6 +11,10 @@ using UnityEngine;
 
 public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, IActivable
 {
+    public virtual void PerformDestroy()
+    {
+
+    }
     public abstract bool PerformReset();
     public abstract void Initialize();
     public abstract bool Activate();
@@ -19,6 +23,7 @@ public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, I
     protected BasicMachinery<object> DefaultMachinery;
     protected ITime GameTimer;
     protected Room Room;
+    protected RoomExit.RoomExitEventArgs ActivationEvent;
 
     protected void Awake()
     {
@@ -28,7 +33,7 @@ public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, I
 
         Initialize();
 
-        if (Room != CurrentRoom && gameObject.activeSelf) gameObject.SetActive(false);
+        if (Room.RoomDefinition != CurrentRoom.Value && gameObject.activeSelf) gameObject.SetActive(false);
 
         this.ObserveEvent<RoomExit.RoomExitEvents, RoomExit.RoomExitEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnRoomExit);
     }
@@ -38,15 +43,21 @@ public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, I
         if (obj.Source.FromRoom == Room)
         {
             gameObject.SetActive(false);
+            ActivationEvent = null;
             return;
         }
         if (obj.Source.ToRoom != Room) return;
-        
-        if (!gameObject.activeSelf) gameObject.SetActive(true);
+
+        if (!gameObject.activeSelf)
+        {
+            ActivationEvent = obj;
+            gameObject.SetActive(true);
+        }
     }
 
     protected void OnDestroy()
     {
+        PerformDestroy();
         this.StopObservingEvent<RoomExit.RoomExitEvents, RoomExit.RoomExitEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnRoomExit);
     }
 

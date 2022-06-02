@@ -6,7 +6,8 @@ public class DamageSource : MonoBehaviour
     public enum DamageSourceType
     {
         Player,
-        Enemy
+        Enemy,
+        Door
     }
 
     public LichtPhysicsObject Source;
