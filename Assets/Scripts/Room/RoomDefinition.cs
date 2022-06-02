@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 [Serializable]
 public struct RoomDefinition
@@ -23,6 +24,7 @@ public struct RoomDefinition
 
     public int RoomX;
     public int RoomY;
+    public Vector2 RoomSize;
     public string RoomId => $"{RoomX}-{RoomY}";
 
     public static bool operator ==(RoomDefinition r1, RoomDefinition r2)

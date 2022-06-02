@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81bdc10c0b241474384277b0beb6b303, type: 3}
-  m_Name: CurrentRoom
+  m_Script: {fileID: 1001085230, guid: be20bbc8d08067240b076ac0acfa1cc2, type: 3}
+  m_Name: PostUpdate
   m_EditorClassIdentifier: 
-  Value:
-    RoomX: 2
-    RoomY: 0
-    RoomSize: {x: 2, y: 1}
