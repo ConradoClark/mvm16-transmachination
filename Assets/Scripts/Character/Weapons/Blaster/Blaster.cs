@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class Blaster : MonoBehaviour
+public class Blaster : LichtMovementController
 {
     public ScriptableInputAction MainWeapon;
     public float CooldownInMs;
@@ -32,8 +32,9 @@ public class Blaster : MonoBehaviour
     private IEventPublisher<WeaponEvents, WeaponEventArgs> _eventPublisher;
     private ITime _gameTimer;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _physics = this.GetLichtPhysics();
         _input = PlayerInput.GetPlayerByIndex(0);
         _defaultMachinery = DefaultMachinery.GetDefaultMachinery();
@@ -68,7 +69,7 @@ public class Blaster : MonoBehaviour
         var blasterInput = _input.actions[MainWeapon.ActionName];
         while (isActiveAndEnabled)
         {
-            if (CharacterForm.Arms.Form == ScriptableForm.CharacterForm.Robot && blasterInput.WasPerformedThisFrame())
+            if (!IsBlocked && CharacterForm.Arms.Form == ScriptableForm.CharacterForm.Robot && blasterInput.WasPerformedThisFrame())
             {
                 MoveController.BlockMovement(this);
                 JumpController.BlockMovement(this);

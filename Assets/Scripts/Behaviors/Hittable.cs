@@ -9,7 +9,7 @@ using UnityEngine;
 public abstract class Hittable<T> : MonoBehaviour where T : class
 {
     public Collider2D Collider;
-    public float TriggerFrequency;
+    public float TriggerFrequencyInSeconds;
 
     private BasicMachinery<object> _defaultMachinery;
     private ITime _gameTimer;
@@ -39,15 +39,16 @@ public abstract class Hittable<T> : MonoBehaviour where T : class
     {
         while (isActiveAndEnabled)
         {
-            if (_physics.CheckCollision(Collider, out var trigger) && trigger.Actor.TryGetCustomObject<T>(out var damageSource) 
-                && ValidateHitSource(damageSource))
+            var collision = _physics.CheckCollision(Collider, out var trigger);
+            if (collision && trigger.Actor.TryGetCustomObject<T>(out var damageSource) 
+                          && ValidateHitSource(damageSource))
             {
                 OnHit?.Invoke(new HitEventArgs()
                 {
                     Trigger = trigger,
                     DamageComponent = damageSource,
                 });
-                yield return TimeYields.WaitMilliseconds(_gameTimer, TriggerFrequency);
+                yield return TimeYields.WaitSeconds(_gameTimer, TriggerFrequencyInSeconds);
             }
             yield return TimeYields.WaitOneFrameX;
         }

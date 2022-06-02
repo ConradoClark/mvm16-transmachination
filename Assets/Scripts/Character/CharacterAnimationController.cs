@@ -15,7 +15,8 @@ public class CharacterAnimationController : MonoBehaviour
     public LichtPhysicsObject Target;
     public TimerScriptable GameTimer;
     public SpriteRenderer[] Parts;
-
+    public DamageHittable PlayerHit;
+    public Player Player;
 
     private LichtPhysics _physics;
     private BasicMachinery<object> _machinery;
@@ -46,6 +47,8 @@ public class CharacterAnimationController : MonoBehaviour
             LichtPlatformerJumpController.LichtPlatformerJumpEvents.OnJumpEnd, OnJumpEnd);
 
         this.StopObservingEvent<WeaponEvents, WeaponEventArgs>(WeaponEvents.OnShoot, OnShoot);
+
+        PlayerHit.OnHit -= PlayerHit_OnHit;
     }
 
     private void OnEnable()
@@ -67,7 +70,21 @@ public class CharacterAnimationController : MonoBehaviour
 
         this.ObserveEvent<WeaponEvents, WeaponEventArgs>(WeaponEvents.OnShoot, OnShoot);
 
+        PlayerHit.OnHit += PlayerHit_OnHit;
+
        _machinery.AddBasicMachine(HandleOnGround());
+    }
+
+    private void PlayerHit_OnHit(Hittable<DamageSource>.HitEventArgs obj)
+    {
+        _machinery.AddBasicMachine(HandleHit());
+    }
+
+    private IEnumerable<IEnumerable<Action>> HandleHit()
+    {
+        Animator.SetBool("IsGettingHit", true);
+        yield return TimeYields.WaitSeconds(GameTimer.Timer, Player.GettingHitDurationInSeconds);
+        Animator.SetBool("IsGettingHit", false);
     }
 
     private void OnShoot(WeaponEventArgs obj)
