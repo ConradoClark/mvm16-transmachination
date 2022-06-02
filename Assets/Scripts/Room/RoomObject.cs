@@ -42,7 +42,7 @@ public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, I
     {
         if (obj.Source.FromRoom == Room)
         {
-            gameObject.SetActive(false);
+            DefaultMachinery.AddBasicMachine(DeactivateAfterDelay());
             ActivationEvent = null;
             return;
         }
@@ -52,6 +52,15 @@ public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, I
         {
             ActivationEvent = obj;
             gameObject.SetActive(true);
+        }
+    }
+
+    private IEnumerable<IEnumerable<Action>> DeactivateAfterDelay()
+    {
+        yield return TimeYields.WaitSeconds(GameTimer, 0.5f);
+        if (Room.RoomDefinition != CurrentRoom.Value)
+        {
+            gameObject.SetActive(false);
         }
     }
 
