@@ -5,6 +5,7 @@ using Licht.Impl.Orchestration;
 using Licht.Interfaces.Time;
 using Licht.Unity.Objects;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
