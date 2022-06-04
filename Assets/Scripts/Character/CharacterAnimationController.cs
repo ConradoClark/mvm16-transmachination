@@ -48,6 +48,9 @@ public class CharacterAnimationController : MonoBehaviour
 
         this.StopObservingEvent<WeaponEvents, WeaponEventArgs>(WeaponEvents.OnShoot, OnShoot);
 
+        this.StopObservingEvent(CharacterDashController.DashEvents.OnDashStart, OnDashStart);
+        this.StopObservingEvent(CharacterDashController.DashEvents.OnDashEnd, OnDashEnd);
+
         PlayerHit.OnHit -= PlayerHit_OnHit;
     }
 
@@ -70,9 +73,23 @@ public class CharacterAnimationController : MonoBehaviour
 
         this.ObserveEvent<WeaponEvents, WeaponEventArgs>(WeaponEvents.OnShoot, OnShoot);
 
+        this.ObserveEvent(CharacterDashController.DashEvents.OnDashStart, OnDashStart);
+        this.ObserveEvent(CharacterDashController.DashEvents.OnDashEnd, OnDashEnd);
+
         PlayerHit.OnHit += PlayerHit_OnHit;
 
        _machinery.AddBasicMachine(HandleOnGround());
+    }
+
+    private void OnDashEnd()
+    {
+        Animator.SetBool("IsDashing", false);
+        Animator.SetBool("InMidDash", false);
+    }
+
+    private void OnDashStart()
+    {
+        Animator.SetBool("IsDashing", true);
     }
 
     private void PlayerHit_OnHit(Hittable<DamageSource>.HitEventArgs obj)
@@ -184,8 +201,10 @@ public class CharacterAnimationController : MonoBehaviour
     private void OnJumpStart(LichtPlatformerJumpController.LichtPlatformerJumpEventArgs obj)
     {
         if (obj.Source.Target != Target) return;
+        Animator.SetBool("IsDashing", false);
         Animator.SetBool("IsJumping", true);
         Animator.SetBool("OnGround", false);
+        
     }
 }
 

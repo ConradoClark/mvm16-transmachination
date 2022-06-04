@@ -10,6 +10,7 @@ public class Player : SceneObject<Player>
     public Collider2D MainCollider;
     public LichtPlatformerMoveController MoveController;
     public LichtPlatformerJumpController JumpController;
+    public CharacterDashController DashController;
     public LichtMovementController BlasterController;
     public LichtPhysicsObject PhysicsObject;
     public float GettingHitDurationInSeconds;

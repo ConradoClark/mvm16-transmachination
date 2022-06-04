@@ -68,6 +68,7 @@ public class CharacterGettingHit : BaseObject
         _player.JumpController.BlockMovement(this);
         _player.MoveController.BlockMovement(this);
         _player.BlasterController.BlockMovement(this);
+        _player.DashController.BlockMovement(this);
     }
 
     private IEnumerable<IEnumerable<Action>> Recoil(Hittable<DamageSource>.HitEventArgs obj)
@@ -87,6 +88,7 @@ public class CharacterGettingHit : BaseObject
         _player.JumpController.UnblockMovement(this);
         _player.MoveController.UnblockMovement(this);
         _player.BlasterController.UnblockMovement(this);
+        _player.DashController.UnblockMovement(this);
     }
 
     private IEnumerable<IEnumerable<Action>> Blink(float frequency)
