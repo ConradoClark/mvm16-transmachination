@@ -9,7 +9,7 @@ using Licht.Interfaces.Time;
 using Licht.Interfaces.Update;
 using UnityEngine;
 
-public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, IActivable
+public abstract class RoomObject : BaseObject, IResettable, IInitializable, IActivable
 {
     public virtual void PerformDestroy()
     {
@@ -20,12 +20,10 @@ public abstract class RoomObject : MonoBehaviour, IResettable, IInitializable, I
     public abstract bool Activate();
 
     public RoomScriptable CurrentRoom;
-    protected BasicMachinery<object> DefaultMachinery;
-    protected ITime GameTimer;
     protected Room Room;
     protected RoomExit.RoomExitEventArgs ActivationEvent;
 
-    protected void Awake()
+    protected override void UnityAwake()
     {
         DefaultMachinery = global::DefaultMachinery.GetDefaultMachinery();
         GameTimer = DefaultGameTimer.GetTimer();

@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Licht.Impl.Orchestration;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class BlasterDoor : RoomObject
@@ -7,8 +10,10 @@ public class BlasterDoor : RoomObject
     public BlasterHittable HitBox;
     public Animator Animator;
     public bool Open;
-
     public RoomExit TargetRoomExit;
+
+    private Player _player;
+    private bool _temporarilyOpen;
 
     public override void PerformDestroy()
     {
@@ -24,15 +29,36 @@ public class BlasterDoor : RoomObject
 
     public override void Initialize()
     {
+        _player = Player.Instance();
         HitBox.OnHit += HitBox_OnHit;
     }
 
     public override bool Activate()
     {
-        Open = ActivationEvent != null && ActivationEvent.Source == TargetRoomExit;
+        _temporarilyOpen = Open = ActivationEvent != null && ActivationEvent.Source == TargetRoomExit;
         Animator.SetBool("Open", Open);
         HitBox.Collider.enabled = !Open;
+        if (_temporarilyOpen)
+        {
+            DefaultMachinery.AddBasicMachine(CheckDistanceToPlayer());
+        }
         return true;
+    }
+
+    private IEnumerable<IEnumerable<Action>> CheckDistanceToPlayer()
+    {
+        while (_temporarilyOpen)
+        {
+            if (Vector2.Distance(transform.position, _player.transform.position) > 3f)
+            {
+                _temporarilyOpen = false;
+            }
+            yield return TimeYields.WaitOneFrameX;
+        }
+
+        HitBox.Collider.enabled = true;
+        Open = false;
+        Animator.SetBool("Open", false);
     }
 
     private void HitBox_OnHit(Hittable<DamageSource>.HitEventArgs obj)
