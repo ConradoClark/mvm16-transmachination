@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Licht.Impl.Events;
 using Licht.Impl.Orchestration;
 using Licht.Interfaces.Time;
@@ -35,16 +36,42 @@ public class MoveCameraToNextArea : BaseObject
 
     private IEnumerable<IEnumerable<Action>> MoveCamera(RoomExit.RoomExitEventArgs obj)
     {
-        GameTimer.Multiplier = 0;
+        GameTimer.Multiplier = 0.1f;
 
-        yield return _camera.transform.GetAccessor()
-            .Position
-            .X
-            .SetTarget(obj.Source.ToRoom.transform.position.x)
-            .Over(0.4f)
-            .Easing(EasingYields.EasingFunction.CubicEaseOut)
-            .UsingTimer(_uiTimer)
-            .Build();
+        IEnumerable<Action> hori = null;
+        IEnumerable<Action> vert = null;
+
+        if (obj.Source.FromRoom.RoomDefinition.RoomX != obj.Source.ToRoom.RoomDefinition.RoomX)
+        {
+            hori = _camera.transform.GetAccessor()
+                .Position
+                .X
+                .SetTarget(obj.Source.ToRoom.transform.position.x)
+                .Over(0.4f)
+                .Easing(EasingYields.EasingFunction.CubicEaseOut)
+                .UsingTimer(_uiTimer)
+                .Build();
+
+        }
+
+        if (obj.Source.FromRoom.RoomDefinition.RoomY != obj.Source.ToRoom.RoomDefinition.RoomY)
+        {
+            vert = _camera.transform.GetAccessor()
+                .Position
+                .Y
+                .SetTarget(obj.Source.ToRoom.transform.position.y)
+                .Over(0.4f)
+                .Easing(EasingYields.EasingFunction.CubicEaseOut)
+                .UsingTimer(_uiTimer)
+                .Build();
+        }
+
+        var combined = new[] { hori, vert }
+            .Where(act => act != null)
+            .Aggregate<IEnumerable<Action>, IEnumerable<Action>>(null, (current, action) =>
+                current == null ? action : current.Combine(action));
+
+        if (combined != null) yield return combined;
 
         GameTimer.Multiplier = 1;
     }

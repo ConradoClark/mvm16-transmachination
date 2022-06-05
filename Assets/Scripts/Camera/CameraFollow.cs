@@ -26,6 +26,11 @@ public class CameraFollow : MonoBehaviour
 
     private void OnEnable()
     {
+        _camera.transform.position = new Vector3(
+            Mathf.Clamp(_player.transform.position.x, _roomManager.CurrentRoom.Value.RoomX * 15,
+                (_roomManager.CurrentRoom.Value.RoomX + _roomManager.CurrentRoom.Value.RoomSize.x - 1) * 15),
+            _roomManager.CurrentRoom.Value.RoomY*9, _camera.transform.position.z);
+
         MachineryRef.Machinery.AddBasicMachine(Follow());
     }
 

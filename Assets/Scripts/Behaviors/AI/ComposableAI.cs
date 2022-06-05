@@ -39,7 +39,7 @@ public class ComposableAI : BaseObject, IGenerator<int,float>
             do
             {
                 yield return _currentAction.Run().AsCoroutine();
-                _currentAction = _currentAction.Next;
+                _currentAction = _currentAction != null ? _currentAction.Next : null;
             } while (_currentAction != null);
         }
     }

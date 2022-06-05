@@ -60,7 +60,7 @@ public class Minimap : BaseObject
         var current = _roomManager.GetRoom(currentRoom.Value.RoomX, currentRoom.Value.RoomY);
 
         var index = 0;
-        for (var row = currentRoom.Value.RoomY - 1; row <= currentRoom.Value.RoomY + 1; row++)
+        for (var row = currentRoom.Value.RoomY + 1; row >= currentRoom.Value.RoomY -1; row--)
         {
             for (var i = currentRoom.Value.RoomX - 4; i < currentRoom.Value.RoomX + 5; i++)
             {
