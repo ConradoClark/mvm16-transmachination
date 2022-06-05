@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -24,8 +25,21 @@ public struct RoomDefinition
 
     public int RoomX;
     public int RoomY;
-    public Vector2 RoomSize;
+    public Vector2Int RoomSize;
     public string RoomId => $"{RoomX}-{RoomY}";
+
+    public Vector2Int[] RoomPositions
+    {
+        get
+        {
+            var room = this;
+            return
+                (from v in Enumerable.Range(room.RoomX, Math.Max(room.RoomSize.x, 1))
+                 from v2 in Enumerable.Range(room.RoomY, Math.Max(room.RoomSize.y, 1))
+                 select new Vector2Int(v, v2))
+                    .ToArray();
+        }
+    }
 
     public static bool operator ==(RoomDefinition r1, RoomDefinition r2)
     {

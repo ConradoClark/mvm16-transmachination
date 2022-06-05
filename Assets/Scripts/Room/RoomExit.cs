@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Licht.Impl.Events;
 using Licht.Impl.Orchestration;
 using Licht.Interfaces.Events;
 using Licht.Unity.Memory;
-using UnityEditor;
 using UnityEngine;
 
 public class RoomExit : MonoBehaviour
@@ -30,7 +28,7 @@ public class RoomExit : MonoBehaviour
     {
         public RoomExit Source;
     }
-
+    
     private void OnEnable()
     {
         _eventPublisher = this.RegisterAsEventPublisher<RoomExitEvents, RoomExitEventArgs>();
@@ -40,6 +38,8 @@ public class RoomExit : MonoBehaviour
 
         _defaultMachinery ??= DefaultMachinery.GetDefaultMachinery();
         _defaultMachinery.AddBasicMachine(HandleExit());
+
+        FromRoom.AddExit(this);
     }
 
     private void OnDisable()
