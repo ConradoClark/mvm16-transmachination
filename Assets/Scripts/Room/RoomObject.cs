@@ -28,6 +28,11 @@ public abstract class RoomObject : BaseObject, IResettable, IInitializable, IAct
 
         if (Room.RoomDefinition != CurrentRoom.Value && gameObject.activeSelf) gameObject.SetActive(false);
 
+        if (Room.RoomDefinition != CurrentRoom.Value)
+        {
+            Activate();
+        }
+
         this.ObserveEvent<RoomExit.RoomExitEvents, RoomExit.RoomExitEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnRoomExit);
     }
 

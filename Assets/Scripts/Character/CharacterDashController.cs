@@ -22,14 +22,20 @@ public class CharacterDashController : BaseMovementController
     public ScriptableTrigger AllowAirDash;
     public ScriptableLichtForceIdentifier Gravity;
     public SpriteRenderer DashEffect;
-
     public ScriptableInputAction Dash;
+    public DamageSource DashBash;
+    public ScriptableTrigger AllowDashBash;
+    public Color DashBashColor;
+
+    private readonly Color _transparent = new Color(0, 0, 0, 0);
+
     private PlayerInput _input;
     private Player _player;
     private LichtPhysics _physics;
     private bool _flicker;
     private EffectsManager _effectsManager;
     private PrefabPool _dashParticles;
+    private PrefabPool _dashBashParticles;
     public bool IsDashing { get; private set; }
 
     public enum DashEvents
@@ -49,11 +55,31 @@ public class CharacterDashController : BaseMovementController
         _physics = this.GetLichtPhysics();
         _effectsManager = EffectsManager.Instance();
         _dashParticles = _effectsManager.GetEffect("DashParticle");
+        _dashBashParticles = _effectsManager.GetEffect("DashBashParticle");
     }
 
     private void OnEnable()
     {
         DefaultMachinery.AddBasicMachine(HandleDashing());
+        this.ObserveEvent<Hittable<DamageSource>.HitEvents, Hittable<DamageSource>.HitEventArgs>(Hittable<DamageSource>.HitEvents.OnHit, OnDashBashHit);
+    }
+
+    private void OnDisable()
+    {
+        this.StopObservingEvent<Hittable<DamageSource>.HitEvents, Hittable<DamageSource>.HitEventArgs>(Hittable<DamageSource>.HitEvents.OnHit, OnDashBashHit);
+    }
+
+    private void OnDashBashHit(Hittable<DamageSource>.HitEventArgs obj)
+    {
+        if (obj.DamageComponent != DashBash) return;
+        DashBash.Enabled = false;
+
+        // implement dash recoil
+    }
+
+    private float GetDashSpeed()
+    {
+        return AllowDashBash.Triggered ? DashSpeed + 2f : DashSpeed;
     }
 
     private IEnumerable<IEnumerable<Action>> PerformDashMovement(LichtCustomPhysicsForce gravity)
@@ -64,7 +90,7 @@ public class CharacterDashController : BaseMovementController
         yield return TimeYields.WaitSeconds(GameTimer, DashDurationInSeconds, (time) =>
         {
             if (dir == Vector2.zero) dir = Vector2.right;
-            latestSpeed = 0.001f * DashSpeed * (float)GameTimer.UpdatedTimeInMilliseconds * dir;
+            latestSpeed = 0.001f * GetDashSpeed() * (float)GameTimer.UpdatedTimeInMilliseconds * dir;
             _player.PhysicsObject.ApplySpeed(latestSpeed);
         }, () => IsBlocked);
 
@@ -100,6 +126,10 @@ public class CharacterDashController : BaseMovementController
         const string opacity = "_Opacity";
         DashEffect.enabled = true;
         DashEffect.material.SetFloat(opacity, 0);
+
+        DashEffect.material.SetColor("_ColorReplTarget1", AllowDashBash.Triggered ? DashBashColor : _transparent);
+        DashEffect.material.SetFloat("_ColorReplTolerance1", AllowDashBash.Triggered ? 200f: 0f);
+
         _flicker = true;
 
         DefaultMachinery.AddBasicMachine(FlickerDashEffect());
@@ -126,9 +156,10 @@ public class CharacterDashController : BaseMovementController
 
     private IEnumerable<IEnumerable<Action>> SummonParticles()
     {
+        var pool = AllowDashBash.Triggered ? _dashBashParticles : _dashParticles;
         for (var i = 0; i < 4; i++)
         {
-            if (_dashParticles.TryGetFromPool(out var obj))
+            if (pool.TryGetFromPool(out var obj))
             {
                 obj.Component.transform.position = transform.position + (Vector3)(Random.insideUnitCircle * 0.2f);
             }
@@ -152,6 +183,11 @@ public class CharacterDashController : BaseMovementController
             if (!IsBlocked && canDash && dashInput.WasPerformedThisFrame())
             {
                 IsDashing = true;
+                if (AllowDashBash.Triggered)
+                {
+                    DashBash.Enabled = true;
+                }
+
                 if (!onGround) performedAirDash = true;
                 _flicker = false;
                 _player.MoveController.BlockMovement(this);
@@ -167,6 +203,7 @@ public class CharacterDashController : BaseMovementController
                     breakCondition: () => IsBlocked);
                 _eventPublisher.PublishEvent(DashEvents.OnDashEnd);
                 IsDashing = false;
+                DashBash.Enabled = false;
 
                 yield return TimeYields.WaitSeconds(GameTimer, DashCooldownInSeconds);
             }

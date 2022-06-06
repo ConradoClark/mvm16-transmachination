@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Licht.Impl.Events;
 using Licht.Impl.Orchestration;
+using Licht.Interfaces.Events;
 using Licht.Interfaces.Time;
 using Licht.Unity.Extensions;
 using Licht.Unity.Physics;
@@ -16,6 +18,12 @@ public abstract class Hittable<T> : MonoBehaviour where T : class
     private LichtPhysics _physics;
 
     public event Action<HitEventArgs> OnHit;
+    private IEventPublisher<HitEvents, HitEventArgs> _eventPublisher;
+
+    public enum HitEvents
+    {
+        OnHit
+    }
 
     public class HitEventArgs
     {
@@ -28,6 +36,7 @@ public abstract class Hittable<T> : MonoBehaviour where T : class
         _defaultMachinery = DefaultMachinery.GetDefaultMachinery();
         _physics = this.GetLichtPhysics();
         _gameTimer = DefaultGameTimer.GetTimer();
+        _eventPublisher = this.RegisterAsEventPublisher<HitEvents, HitEventArgs>();
     }
 
     private void OnEnable()
@@ -43,11 +52,15 @@ public abstract class Hittable<T> : MonoBehaviour where T : class
             if (collision && trigger.Actor.TryGetCustomObject<T>(out var damageSource) 
                           && ValidateHitSource(damageSource))
             {
-                OnHit?.Invoke(new HitEventArgs()
+                var eventArgs = new HitEventArgs
                 {
                     Trigger = trigger,
                     DamageComponent = damageSource,
-                });
+                };
+
+                OnHit?.Invoke(eventArgs);
+                _eventPublisher.PublishEvent(HitEvents.OnHit, eventArgs);
+
                 yield return TimeYields.WaitSeconds(_gameTimer, TriggerFrequencyInSeconds);
             }
             yield return TimeYields.WaitOneFrameX;
