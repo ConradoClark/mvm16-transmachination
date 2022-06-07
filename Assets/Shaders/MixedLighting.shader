@@ -239,7 +239,7 @@ Shader "Licht/MixedLighting"
 				o.screenPos = ComputeScreenPos(o.vertex);
 
 				// UV Scrolling
-				o.uv = TRANSFORM_TEX(v.uv, _MainTex) - float2(_Time[1] * _HAutoScroll, _Time[1] * _VAutoScroll);
+				o.uv = (TRANSFORM_TEX(v.uv, _MainTex) - float2(_Time[1] * _HAutoScroll, _Time[1] * _VAutoScroll) % float2(1,1));
 				return o;
 			}
 
