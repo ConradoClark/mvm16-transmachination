@@ -21,9 +21,13 @@ public class Capsule : RoomObject
     public Light CapsuleLight;
     public Light PlaqueLight;
 
+    public string BottomText;
+    public string BottomCaption;
+
     private Player _player;
     private bool _triggering;
     private PrefabPool _capsuleParticles;
+    private Letterbox _letterbox;
 
     private IEnumerable<IEnumerable<Action>> HandleCapsule()
     {
@@ -34,7 +38,7 @@ public class Capsule : RoomObject
         };
         var results = new Collider2D[1];
 
-        while (!Trigger.Triggered)
+        while (!Trigger.Triggered && !_triggering)
         {
             if (Collider.OverlapCollider(filter, results) > 0)
             {
@@ -78,10 +82,9 @@ public class Capsule : RoomObject
 
     private IEnumerable<IEnumerable<Action>> AnimateCapsule()
     {
-        // summon particles
-        // blink lights
         yield return TimeYields.WaitOneFrameX;
 
+        DefaultMachinery.AddBasicMachine(_letterbox.ShowLetterbox());
         DefaultMachinery.AddBasicMachine(FlickerCrystalLights());
         DefaultMachinery.AddBasicMachine(SummonParticles());
 
@@ -117,6 +120,11 @@ public class Capsule : RoomObject
             .Build();
 
         yield return colorToInactiveAgain.Combine(lights);
+
+        yield return _letterbox.ShowBottomCaption(BottomCaption).AsCoroutine();
+        yield return _letterbox.ShowBottomText(BottomText).AsCoroutine();
+        yield return _letterbox.ShowCursor(true).AsCoroutine();
+        yield return _letterbox.HideLetterbox().AsCoroutine();
     }
 
     public override bool PerformReset()
@@ -128,6 +136,7 @@ public class Capsule : RoomObject
     {
         _player = Player.Instance();
         _capsuleParticles = EffectsManager.Instance().GetEffect("CapsuleParticle");
+        _letterbox = Letterbox.Instance();
     }
 
     public override bool Activate()

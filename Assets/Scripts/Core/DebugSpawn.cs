@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class DebugSpawn : MonoBehaviour
 {
     public Room CurrentRoom;
