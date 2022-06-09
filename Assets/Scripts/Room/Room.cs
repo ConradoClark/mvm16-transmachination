@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-500)]
 public class Room : MonoBehaviour
 {
     public RoomDefinition RoomDefinition;

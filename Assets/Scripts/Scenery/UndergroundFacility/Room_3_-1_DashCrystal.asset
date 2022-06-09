@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abd1ab3ecf31afc4887bba4e07ca562b, type: 3}
-  m_Name: Room_3_-1_SuperJump
+  m_Name: Room_3_-1_DashCrystal
   m_EditorClassIdentifier: 
   Triggered: 1

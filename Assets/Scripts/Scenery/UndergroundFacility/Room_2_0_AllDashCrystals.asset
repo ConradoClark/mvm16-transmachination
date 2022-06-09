@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a1005521e34c74aa3a562a2efa762f, type: 3}
+  m_Name: Room_2_0_AllDashCrystals
+  m_EditorClassIdentifier: 
+  <Triggered>k__BackingField: 0
+  Triggers:
+  - {fileID: 11400000, guid: 5b505dbfbd566f641a97b45805fcd1fc, type: 2}
+  - {fileID: 11400000, guid: 7136c80cf1d0d9349b0623acf07c1cc7, type: 2}

@@ -31,7 +31,7 @@ public abstract class RoomObject : BaseObject, IResettable, IInitializable, IAct
 
         Initialize();
 
-        if (Room.RoomDefinition != CurrentRoom.Value && gameObject.activeSelf) gameObject.SetActive(false);
+        if (Room.RoomDefinition != CurrentRoom.Value && gameObject.activeSelf) gameObject.SetActive(false); 
 
         if (Room.RoomDefinition != CurrentRoom.Value)
         {
