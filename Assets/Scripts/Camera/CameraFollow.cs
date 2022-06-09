@@ -16,6 +16,9 @@ public class CameraFollow : MonoBehaviour
     private RoomManager _roomManager;
     private ITime _uiTimer;
 
+    public bool IsXBlocked { get; set; }
+    public bool IsYBlocked { get; set; }
+
     protected void Awake()
     {
         _camera = GetComponent<Camera>();
@@ -29,7 +32,7 @@ public class CameraFollow : MonoBehaviour
         _camera.transform.position = new Vector3(
             Mathf.Clamp(_player.transform.position.x, _roomManager.CurrentRoom.Value.RoomX * 15,
                 (_roomManager.CurrentRoom.Value.RoomX + _roomManager.CurrentRoom.Value.RoomSize.x - 1) * 15),
-            _roomManager.CurrentRoom.Value.RoomY*9, _camera.transform.position.z);
+            _roomManager.CurrentRoom.Value.RoomY * 9, _camera.transform.position.z);
 
         MachineryRef.Machinery.AddBasicMachine(Follow());
     }
@@ -39,20 +42,21 @@ public class CameraFollow : MonoBehaviour
         var currentRoom = _roomManager.CurrentRoom.Value;
         while (isActiveAndEnabled)
         {
-            if (_roomManager.CurrentRoom.Value != currentRoom)
+            var newPos = _player.transform.position;
+            if (!IsXBlocked && _roomManager.CurrentRoom.Value.RoomSize.x > 1)
             {
-                yield return TimeYields.WaitSeconds(_uiTimer, 0.5f);
-                currentRoom = _roomManager.CurrentRoom.Value;
-            }
-
-            if (_roomManager.CurrentRoom.Value.RoomSize.x > 1)
-            {
-                var newPos = _player.transform.position;
-
                 _camera.transform.position = new Vector3(
                     Mathf.Clamp(newPos.x, _roomManager.CurrentRoom.Value.RoomX * 15,
-                        (_roomManager.CurrentRoom.Value.RoomX + _roomManager.CurrentRoom.Value.RoomSize.x-1) * 15),
+                        (_roomManager.CurrentRoom.Value.RoomX + _roomManager.CurrentRoom.Value.RoomSize.x - 1) * 15),
                         _camera.transform.position.y, _camera.transform.position.z);
+            }
+
+            if (!IsYBlocked && _roomManager.CurrentRoom.Value.RoomSize.y > 1)
+            {
+                _camera.transform.position = new Vector3(
+                    _camera.transform.position.x,
+                    Mathf.Clamp(newPos.y, _roomManager.CurrentRoom.Value.RoomY * 9,
+                        (_roomManager.CurrentRoom.Value.RoomY + _roomManager.CurrentRoom.Value.RoomSize.y - 1) * 9), _camera.transform.position.z);
             }
 
             yield return TimeYields.WaitOneFrameX;

@@ -14,6 +14,11 @@ public abstract class RoomObject : BaseObject, IResettable, IInitializable, IAct
     public abstract void Initialize();
     public abstract bool Activate();
 
+    public virtual bool Deactivate()
+    {
+        return true;
+    }
+
     public RoomScriptable CurrentRoom;
     protected Room Room;
     protected RoomExit.RoomExitEventArgs ActivationEvent;
@@ -72,6 +77,11 @@ public abstract class RoomObject : BaseObject, IResettable, IInitializable, IAct
     {
         PerformReset();
         Activate();
+    }
+
+    protected void OnDisable()
+    {
+        Deactivate();
     }
 
     public bool IsActive => isActiveAndEnabled;
