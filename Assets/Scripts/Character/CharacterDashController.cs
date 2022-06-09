@@ -37,6 +37,12 @@ public class CharacterDashController : BaseMovementController
     private PrefabPool _dashParticles;
     private PrefabPool _dashBashParticles;
     public bool IsDashing { get; private set; }
+    private bool _bashing;
+
+    public float RecoilDuration;
+    public float RecoilYValue;
+    public float RecoilSpeed;
+    public Transform DashRecoilLock;
 
     public enum DashEvents
     {
@@ -74,7 +80,29 @@ public class CharacterDashController : BaseMovementController
         if (obj.DamageComponent != DashBash) return;
         DashBash.Enabled = false;
 
-        // implement dash recoil
+        DefaultMachinery.AddBasicMachine(DashRecoil());
+    }
+
+    private IEnumerable<IEnumerable<Action>> DashRecoil()
+    {
+        IsDashing = false;
+        _bashing = true;
+        var dir = new Vector2(-_player.MoveController.LatestDirection, RecoilYValue);
+
+        var @lock = new object();
+        _player.MoveController.BlockMovement(DashRecoilLock);
+
+        yield return TimeYields.WaitSeconds(GameTimer, RecoilDuration, (time) =>
+        {
+            if (dir == Vector2.zero) dir = Vector2.right;
+
+            var accel = (float)(RecoilDuration - time*0.001f);
+            var latestSpeed = accel * 0.001f * RecoilSpeed * (float)GameTimer.UpdatedTimeInMilliseconds * dir;
+            _player.PhysicsObject.ApplySpeed(latestSpeed);
+        }, () => IsBlocked);
+
+        _player.MoveController.UnblockMovement(DashRecoilLock);
+        _bashing = false;
     }
 
     private float GetDashSpeed()
@@ -92,7 +120,7 @@ public class CharacterDashController : BaseMovementController
             if (dir == Vector2.zero) dir = Vector2.right;
             latestSpeed = 0.001f * GetDashSpeed() * (float)GameTimer.UpdatedTimeInMilliseconds * dir;
             _player.PhysicsObject.ApplySpeed(latestSpeed);
-        }, () => IsBlocked);
+        }, () => IsBlocked || _bashing);
 
         _player.MoveController.UnblockMovement(this);
         gravity.UnblockForceFor(this, _player.PhysicsObject);
@@ -104,6 +132,7 @@ public class CharacterDashController : BaseMovementController
                 DashDecelerationInSeconds : MidAirDashDecelerationInSeconds)
             .Easing(EasingYields.EasingFunction.QuadraticEaseOut)
             .UsingTimer(GameTimer)
+            .BreakIf(()=> _bashing)
             .Build();
     }
 

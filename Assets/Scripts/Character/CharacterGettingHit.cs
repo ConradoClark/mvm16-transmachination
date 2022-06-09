@@ -73,7 +73,18 @@ public class CharacterGettingHit : BaseObject
 
     private IEnumerable<IEnumerable<Action>> Recoil(Hittable<DamageSource>.HitEventArgs obj)
     {
-        yield return _player.PhysicsObject.GetSpeedAccessor()
+        if (obj.DamageComponent.Damage.DamageType == DamageType.Contact)
+        {
+            yield return _player.PhysicsObject.GetSpeedAccessor()
+                .X
+                .SetTarget(RecoilStrength * Mathf.Sign(_player.MoveController.LatestDirection * -1) * 0.001f)
+                .Over(_player.GettingHitDurationInSeconds)
+                .UsingTimer(GameTimer)
+                .Easing(EasingYields.EasingFunction.QuadraticEaseOut)
+                .Build();
+        }
+
+        else yield return _player.PhysicsObject.GetSpeedAccessor()
             .X
             .SetTarget(RecoilStrength * Mathf.Sign(obj.Trigger.Actor.LatestSpeed.x) * 0.001f)
             .Over(_player.GettingHitDurationInSeconds)

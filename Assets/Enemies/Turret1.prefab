@@ -170,6 +170,8 @@ GameObject:
   - component: {fileID: 6781432582468574174}
   - component: {fileID: 6781432582468574177}
   - component: {fileID: 6781432582468574176}
+  - component: {fileID: 1402844106}
+  - component: {fileID: 1402844105}
   m_Layer: 7
   m_Name: Turret1
   m_TagString: Untagged
@@ -184,7 +186,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6781432582468574168}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.55, y: -2.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -300,7 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentRoom: {fileID: 11400000, guid: 3fe3efc6ef09d7a4daaacfa1069aae5e, type: 2}
   Direction: -1
-  ProjectileSpeed: 8
+  ProjectileSpeed: 6
   Projectile: TurretBlaster
 --- !u!114 &6781432582468574174
 MonoBehaviour:
@@ -352,6 +354,43 @@ MonoBehaviour:
   EffectOffset: {x: 0.4, y: 0}
   ProjectileOffset: {x: 0.7, y: 0}
   TurretShootEffectName: TurretShoot
+--- !u!114 &1402844106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6781432582468574168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b586a58bca4aa694f8a3cfed80f443e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 1402844105}
+  SourceType: 1
+  Damage: {fileID: 11400000, guid: d7fd986141ea7614da8293ff36e96e44, type: 2}
+  Enabled: 1
+--- !u!114 &1402844105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6781432582468574168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 155473475, guid: be20bbc8d08067240b076ac0acfa1cc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Static: 1
+  HorizontalCollider: {fileID: 6781432582468574173}
+  VerticalCollider: {fileID: 6781432582468574173}
+  CustomCollisionChecks:
+  - CollisionLayerMask:
+      serializedVersion: 2
+      m_Bits: 64
+    CollisionName: 
+    ColliderToUse: {fileID: 6781432582468574173}
 --- !u!1 &6781432582861390913
 GameObject:
   m_ObjectHideFlags: 0

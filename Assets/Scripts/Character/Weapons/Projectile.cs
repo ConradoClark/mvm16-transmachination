@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Licht.Impl.Orchestration;
 using Licht.Unity.Extensions;
 using Licht.Unity.Physics;
@@ -63,7 +64,10 @@ public class Projectile : EffectPoolable
 
     private IEnumerable<IEnumerable<Action>> HandleCollision()
     {
-        if (!_physics.GetCollisionState(PhysicsObject).Horizontal.TriggeredHit) yield break;
+        var collisionState = _physics.GetCollisionState(PhysicsObject);
+        if (!collisionState.Horizontal.TriggeredHit
+            && (collisionState.Custom?.All(c=>!c.TriggeredHit) ?? true)
+            ) yield break;
 
         if (!string.IsNullOrWhiteSpace(EffectOnCollision))
         {

@@ -122,7 +122,12 @@ MonoBehaviour:
   Static: 0
   HorizontalCollider: {fileID: 4246055691520313474}
   VerticalCollider: {fileID: 4246055691520313474}
-  CustomCollisionChecks: []
+  CustomCollisionChecks:
+  - CollisionLayerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    CollisionName: 
+    ColliderToUse: {fileID: 4246055691520313474}
 --- !u!61 &4246055691520313474
 BoxCollider2D:
   m_ObjectHideFlags: 0

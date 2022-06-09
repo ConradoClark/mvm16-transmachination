@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Collider: {fileID: 354021373850543828}
-  TriggerFrequencyInSeconds: 1
+  TriggerFrequencyInSeconds: 0.35
   HitType: 2
 --- !u!114 &354021373850543835
 MonoBehaviour:
