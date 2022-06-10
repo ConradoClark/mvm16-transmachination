@@ -24,6 +24,7 @@ public class CharacterDashController : BaseMovementController
     public SpriteRenderer DashEffect;
     public ScriptableInputAction Dash;
     public DamageSource DashBash;
+    public LichtPhysicsObject DashBashCollider;
     public ScriptableTrigger AllowDashBash;
     public Color DashBashColor;
 
@@ -212,10 +213,8 @@ public class CharacterDashController : BaseMovementController
             if (!IsBlocked && canDash && dashInput.WasPerformedThisFrame())
             {
                 IsDashing = true;
-                if (AllowDashBash.Triggered)
-                {
-                    DashBash.Enabled = true;
-                }
+
+                DashBashCollider.enabled = DashBash.Enabled = AllowDashBash.Triggered;
 
                 if (!onGround) performedAirDash = true;
                 _flicker = false;
@@ -232,7 +231,7 @@ public class CharacterDashController : BaseMovementController
                     breakCondition: () => IsBlocked);
                 _eventPublisher.PublishEvent(DashEvents.OnDashEnd);
                 IsDashing = false;
-                DashBash.Enabled = false;
+                DashBashCollider.enabled = DashBash.Enabled = DashBash.Enabled = false;
 
                 yield return TimeYields.WaitSeconds(GameTimer, DashCooldownInSeconds);
             }

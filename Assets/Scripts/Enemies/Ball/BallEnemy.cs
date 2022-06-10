@@ -19,9 +19,11 @@ public class BallEnemy : RoomObject
     private LichtPhysicsObject _physicsObject;
     private LichtPhysics _physics;
     private Vector3 _originalPosition;
+    private Vector2 _originalDirection;
 
     public override bool PerformReset()
     {
+        Direction = _originalDirection;
         transform.position = _originalPosition;
         _enemy.PerformReset();
         return true;
@@ -30,6 +32,7 @@ public class BallEnemy : RoomObject
     public override void Initialize()
     {
         _originalPosition = transform.position;
+        _originalDirection = Direction;
     }
 
     public override bool Activate()
@@ -50,31 +53,31 @@ public class BallEnemy : RoomObject
     {
         while (isActiveAndEnabled)
         {
-            _physicsObject.ApplySpeed(Direction * Speed * (float) GameTimer.UpdatedTimeInMilliseconds * 0.001f);
+            _physicsObject.ApplySpeed(Direction * Speed * (float)GameTimer.UpdatedTimeInMilliseconds * 0.001f);
             var collisionState = _physics.GetCollisionState(_physicsObject);
 
-            if (collisionState.Horizontal.HitNegative)
+            if (collisionState.Horizontal.HitNegative && Mathf.Abs(_originalDirection.x) > 0)
             {
                 Direction = Vector2.right;
             }
 
-            if (collisionState.Horizontal.HitPositive)
+            if (collisionState.Horizontal.HitPositive && Mathf.Abs(_originalDirection.x) > 0)
             {
                 Direction = Vector2.left;
             }
 
-            if (collisionState.Vertical.HitNegative)
+            if (collisionState.Vertical.HitNegative && Mathf.Abs(_originalDirection.y) > 0)
             {
                 Direction = Vector2.up;
             }
 
-            if (collisionState.Vertical.HitPositive)
+            if (collisionState.Vertical.HitPositive && Mathf.Abs(_originalDirection.y) > 0)
             {
                 Direction = Vector2.down;
             }
 
             yield return TimeYields.WaitOneFrameX;
         }
-    } 
-    
+    }
+
 }

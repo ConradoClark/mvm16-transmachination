@@ -9,6 +9,7 @@ public class EncryptionDoor : RoomObject
 {
     public EncryptionWheel Wheel;
     public BlasterHittable HitBox;
+    public Collider2D[] AdditionalColliders;
     public Animator Animator;
     public bool Open;
     public RoomExit TargetRoomExit;
@@ -42,7 +43,7 @@ public class EncryptionDoor : RoomObject
     {
         _temporarilyOpen = Open = ActivationEvent != null && ActivationEvent.Source == TargetRoomExit;
         Animator.SetBool("Open", Open);
-        HitBox.Collider.enabled = !Open;
+        SetColliderState(!Open);
         if (_temporarilyOpen)
         {
             DefaultMachinery.AddBasicMachine(CheckDistanceToPlayer());
@@ -87,9 +88,9 @@ public class EncryptionDoor : RoomObject
             }
             yield return TimeYields.WaitOneFrameX;
         }
-            
-        HitBox.Collider.enabled = true;
-        Open = false;
+
+        SetColliderState(true);
+         Open = false;
         Animator.SetBool("Open", false);
     }
 
@@ -102,7 +103,7 @@ public class EncryptionDoor : RoomObject
 
         if (Wheel.HitOnQuadrant)
         {
-            HitBox.Collider.enabled = false;
+            SetColliderState(false);
             Open = true;
             Animator.SetBool("Open", true);
             yield return Wheel.Hide().AsCoroutine();
@@ -116,5 +117,14 @@ public class EncryptionDoor : RoomObject
         if (_animating) return;
 
         DefaultMachinery.AddBasicMachine(CheckHit());
+    }
+
+    private void SetColliderState(bool state)
+    {
+        HitBox.Collider.enabled = state;
+        foreach (var col in AdditionalColliders)
+        {
+            col.enabled = state;
+        }
     }
 }
