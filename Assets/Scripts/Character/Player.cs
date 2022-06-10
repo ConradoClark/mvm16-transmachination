@@ -17,6 +17,7 @@ public class Player : SceneObject<Player>
     public float GettingHitDurationInSeconds;
     public float InvincibilityDurationInSeconds;
     public PlayerStats Stats;
+    public ScriptableFormComposition Form;
 
     public void BlockAllMovement(MonoBehaviour source)
     {
