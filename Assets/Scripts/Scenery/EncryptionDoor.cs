@@ -14,6 +14,8 @@ public class EncryptionDoor : RoomObject
     public bool Open;
     public RoomExit TargetRoomExit;
 
+    public float Proximity;
+
     private Player _player;
     private bool _temporarilyOpen;
 
@@ -58,18 +60,19 @@ public class EncryptionDoor : RoomObject
 
     private IEnumerable<IEnumerable<Action>> HandleDoor()
     {
+        var proximity = Proximity > 0f ? Proximity : 3f;
         if (_hooked) yield break;
         _hooked = true;
         while (isActiveAndEnabled)
         {
             if (Open) yield return TimeYields.WaitOneFrameX;
 
-            if (!Open && !Wheel.Hidden && Vector2.Distance(transform.position, _player.transform.position) > 3f)
+            if (!Open && !Wheel.Hidden && Vector2.Distance(transform.position, _player.transform.position) > proximity)
             {
                 yield return Wheel.Hide().AsCoroutine();
             }
 
-            if (!Open && Wheel.Hidden && Vector2.Distance(transform.position, _player.transform.position) < 3f)
+            if (!Open && Wheel.Hidden && Vector2.Distance(transform.position, _player.transform.position) < proximity)
             {
                 yield return Wheel.Show().AsCoroutine();
             }

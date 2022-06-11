@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8807433112470763838}
   - component: {fileID: 8807433112470763837}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8807433113066842121}
   - component: {fileID: 8807433113066842120}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BlasterPylon_Contour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,8 @@ GameObject:
   - component: {fileID: 8807433114075352842}
   - component: {fileID: 8807433114075352843}
   - component: {fileID: 8807433114075352884}
-  m_Layer: 0
+  - component: {fileID: 3717356999777419558}
+  m_Layer: 3
   m_Name: BlasterPylon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,3 +303,16 @@ MonoBehaviour:
   Collider: {fileID: 8807433114075352843}
   TriggerFrequencyInSeconds: 0.1
   HitType: 2
+--- !u!114 &3717356999777419558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8807433114075352885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c1959229ed9c2448a68633ac1cba36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentRoom: {fileID: 11400000, guid: 3fe3efc6ef09d7a4daaacfa1069aae5e, type: 2}
