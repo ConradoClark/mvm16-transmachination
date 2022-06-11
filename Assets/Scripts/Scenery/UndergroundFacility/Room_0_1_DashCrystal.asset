@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abd1ab3ecf31afc4887bba4e07ca562b, type: 3}
-  m_Name: AllowAirDash
+  m_Name: Room_0_1_DashCrystal
   m_EditorClassIdentifier: 
-  <Triggered>k__BackingField: 1
+  <Triggered>k__BackingField: 0

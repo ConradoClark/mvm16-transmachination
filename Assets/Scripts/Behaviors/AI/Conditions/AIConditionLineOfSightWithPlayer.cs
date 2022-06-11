@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Licht.Unity.Extensions;
 using UnityEngine;
 
 public class AIConditionLineOfSightWithPlayer : AICondition
@@ -13,6 +14,6 @@ public class AIConditionLineOfSightWithPlayer : AICondition
     public override bool CheckCondition()
     {
         var rayCast = Physics2D.Raycast((Vector2)transform.position + Offset, Direction, ContactFilter, _results);
-        return rayCast > 0 && Player.Instance().MainCollider == _results[0].collider;
+        return rayCast > 0 && Player.Instance().LayerMask.Contains(_results[0].collider.gameObject.layer);
     }
 }
