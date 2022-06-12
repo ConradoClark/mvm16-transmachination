@@ -28,6 +28,8 @@ public struct RoomDefinition
     public Vector2Int RoomSize;
     public string RoomId => $"{RoomX}-{RoomY}";
 
+    public Vector3 SpawnPosition;
+
     public Vector2Int[] RoomPositions
     {
         get

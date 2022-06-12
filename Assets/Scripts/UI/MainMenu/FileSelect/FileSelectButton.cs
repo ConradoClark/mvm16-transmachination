@@ -1,18 +1,50 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Licht.Impl.Orchestration;
 using Licht.Interfaces.Time;
 using Licht.Unity.Extensions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FileSelectButton: MainMenuUIButton
+public class FileSelectButton : MainMenuUIButton
 {
+    public TMP_Text NewFileCaption;
+    public Transform SaveDetails;
+
+    public SavePoint CurrentSavePoint;
+    public FileSelect FileSelect;
     private ITime _timer;
 
     protected override void UnityAwake()
     {
         _timer = DefaultUITimer.GetTimer();
+    }
+
+    public override void OnInit()
+    {
+        base.OnInit();
+        if (FileSelect.SaveFile.Created)
+        {
+            ShowFile();
+        }
+        else
+        {
+            ShowEmptyFile();
+        }
+    }
+
+    private void ShowFile()
+    {
+        SaveDetails.gameObject.SetActive(true);
+        NewFileCaption.enabled = false;
+    }
+
+    private void ShowEmptyFile()
+    {
+        SaveDetails.gameObject.SetActive(false);
+        NewFileCaption.enabled = true;
     }
 
     private IEnumerable<IEnumerable<Action>> HideCurrentMenu()
@@ -44,8 +76,7 @@ public class FileSelectButton: MainMenuUIButton
 
         MenuContext.gameObject.SetActive(false);
 
-        // Load file
-        // Change to correct scene
+        CurrentSavePoint.LoadFromSavePoint(FileSelect.SaveFile);
 
         DefaultMachinery.FinalizeWith(() =>
         {
