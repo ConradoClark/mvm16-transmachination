@@ -18,6 +18,17 @@ public class Player : SceneObject<Player>
     public float InvincibilityDurationInSeconds;
     public PlayerStats Stats;
     public ScriptableFormComposition Form;
+    public Transform AnimTransform;
+
+    public void Hide()
+    {
+        AnimTransform.gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        AnimTransform.gameObject.SetActive(true);
+    }
 
     public void BlockAllMovement(MonoBehaviour source)
     {

@@ -17,6 +17,7 @@ public class EffectsManager : SceneObject<EffectsManager>
 
     public EffectDefinition[] Effects;
     public HitNumberPool HitNumberPool;
+    public DeathParticlePool DeathParticlePool;
 
     public PrefabPool GetEffect(string effectName)
     {

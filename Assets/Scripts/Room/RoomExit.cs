@@ -28,7 +28,14 @@ public class RoomExit : MonoBehaviour
     {
         public RoomExit Source;
     }
-    
+
+    public class RespawnEventArgs
+    {
+        public RoomDefinition FromRoom;
+        public RoomDefinition ToRoom;
+    }
+
+
     private void OnEnable()
     {
         _eventPublisher = this.RegisterAsEventPublisher<RoomExitEvents, RoomExitEventArgs>();

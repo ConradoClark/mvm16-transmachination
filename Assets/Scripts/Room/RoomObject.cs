@@ -39,6 +39,24 @@ public abstract class RoomObject : BaseObject, IResettable, IInitializable, IAct
         }
 
         this.ObserveEvent<RoomExit.RoomExitEvents, RoomExit.RoomExitEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnRoomExit);
+        this.ObserveEvent<RoomExit.RoomExitEvents, RoomExit.RespawnEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnRespawn);
+    }
+
+    private void OnRespawn(RoomExit.RespawnEventArgs obj)
+    {
+        if (obj.FromRoom == Room.RoomDefinition && obj.ToRoom != obj.FromRoom)
+        {
+            DefaultMachinery.AddBasicMachine(DeactivateAfterDelay());
+            ActivationEvent = null;
+            return;
+        }
+        if (obj.ToRoom != Room.RoomDefinition) return;
+
+        if (!gameObject.activeSelf)
+        {
+            ActivationEvent = null;
+            gameObject.SetActive(true);
+        }
     }
 
     private void OnRoomExit(RoomExit.RoomExitEventArgs obj)

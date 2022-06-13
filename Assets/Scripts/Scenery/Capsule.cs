@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Licht.Impl.Orchestration;
 using Licht.Unity.Builders;
 using Licht.Unity.Extensions;
@@ -24,10 +25,13 @@ public class Capsule : RoomObject
     public string BottomText;
     public string BottomCaption;
 
+    public KnownRoomsScriptable KnownRoomsRef;
+
     private Player _player;
     private bool _triggering;
     private PrefabPool _capsuleParticles;
     private Letterbox _letterbox;
+    private GameSpawn _gameSpawn;
 
     private IEnumerable<IEnumerable<Action>> HandleCapsule()
     {
@@ -111,7 +115,7 @@ public class Capsule : RoomObject
             .Easing(EasingYields.EasingFunction.SineEaseInOut)
             .Build();
 
-        var lights = new LerpBuilder(f=> WestCrystalLight.intensity = EastCrystalLight.intensity = CapsuleLight.intensity = PlaqueLight.intensity = f,
+        var lights = new LerpBuilder(f => WestCrystalLight.intensity = EastCrystalLight.intensity = CapsuleLight.intensity = PlaqueLight.intensity = f,
             () => CapsuleLight.intensity)
             .SetTarget(0f)
             .Over(1f)
@@ -125,6 +129,25 @@ public class Capsule : RoomObject
         yield return _letterbox.ShowBottomText(BottomText).AsCoroutine();
         yield return _letterbox.ShowCursor(true).AsCoroutine();
         yield return _letterbox.HideLetterbox().AsCoroutine();
+
+        SetCheckpoint();
+        // show a checkpoint saved message
+    }
+
+    private void SetCheckpoint()
+    {
+        _gameSpawn.CheckPoint.Triggers = _gameSpawn.CheckPoint.Triggers.Except(new[]{ new TriggerSettings
+        {
+            Enabled = false,
+            Trigger = Trigger
+        }}).Concat(new[]{new TriggerSettings
+        {
+            Enabled = true,
+            Trigger = Trigger
+        }}).ToArray();
+
+        _gameSpawn.CheckPoint.KnownRooms = KnownRoomsRef.KnownRooms;
+        _gameSpawn.CheckPoint.Room = CurrentRoom.Value;
     }
 
     public override bool PerformReset()
@@ -137,6 +160,7 @@ public class Capsule : RoomObject
         _player = Player.Instance();
         _capsuleParticles = EffectsManager.Instance().GetEffect("CapsuleParticle");
         _letterbox = Letterbox.Instance();
+        _gameSpawn = GameSpawn.Instance();
     }
 
     public override bool Activate()

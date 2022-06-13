@@ -34,15 +34,15 @@ public class DashCrystal : RoomObject
         if (_hooked) return false;
 
         HitTrigger.OnHit += HitTrigger_OnHit;
+        TriggerWatcher.OnTriggerChanged += TriggerWatcher_OnTriggerChanged;
         _hooked = true;
         SetState();
         return true;
     }
 
-    private void HitTrigger_OnHit(Hittable<DamageSource>.HitEventArgs obj)
+    private void TriggerWatcher_OnTriggerChanged(bool obj)
     {
-        TriggerWatcher.Trigger.Triggered = !TriggerWatcher.Trigger.Triggered;
-        if (TriggerWatcher.Trigger.Triggered)
+        if (obj)
         {
             DefaultMachinery.AddBasicMachine(TurnOn());
         }
@@ -50,6 +50,11 @@ public class DashCrystal : RoomObject
         {
             DefaultMachinery.AddBasicMachine(TurnOff());
         }
+    }
+
+    private void HitTrigger_OnHit(Hittable<DamageSource>.HitEventArgs obj)
+    {
+        TriggerWatcher.Trigger.Triggered = !TriggerWatcher.Trigger.Triggered;
     }
 
     private IEnumerable<IEnumerable<Action>> TurnOn()
@@ -98,6 +103,7 @@ public class DashCrystal : RoomObject
     public override bool Deactivate()
     {
         HitTrigger.OnHit -= HitTrigger_OnHit;
+        TriggerWatcher.OnTriggerChanged -= TriggerWatcher_OnTriggerChanged;
         _hooked = false;
         return true;
     }

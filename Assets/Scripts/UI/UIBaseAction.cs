@@ -33,6 +33,7 @@ public class UIBaseAction : UIAction
 
     private void AdjustColor()
     {
+        if (BGSpriteRenderer == null) return;
         BGSpriteRenderer.color = Selected ? SelectedColor : UnselectedColor;
     }
 }

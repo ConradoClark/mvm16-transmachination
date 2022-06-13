@@ -11,7 +11,8 @@ public class PlayerStats : MonoBehaviour
 
     public enum StatChangeEvent
     {
-        OnHitPointsChanged
+        OnHitPointsChanged,
+        OnDeath
     }
 
     public class StatChangeEventArgs
@@ -34,9 +35,23 @@ public class PlayerStats : MonoBehaviour
         this.UnregisterAsEventPublisher<StatChangeEvent, StatChangeEventArgs>();
     }
 
+    public void ResetHitPoints()
+    {
+        CurrentHitPoints = MaxHitPoints;
+        _eventPublisher.PublishEvent(StatChangeEvent.OnHitPointsChanged, new StatChangeEventArgs { CurrentValue = CurrentHitPoints });
+    }
+
     public void TakeDamage(int damage)
     {
+        if (CurrentHitPoints <= 0) return;
+
         CurrentHitPoints -= damage;
+        if (CurrentHitPoints <= 0) CurrentHitPoints = 0;
         _eventPublisher.PublishEvent(StatChangeEvent.OnHitPointsChanged, new StatChangeEventArgs { CurrentValue = CurrentHitPoints });
+
+        if (CurrentHitPoints == 0)
+        {
+            _eventPublisher.PublishEvent(StatChangeEvent.OnDeath, new StatChangeEventArgs());
+        }
     }
 }

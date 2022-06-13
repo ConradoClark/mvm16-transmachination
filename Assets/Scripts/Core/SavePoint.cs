@@ -49,7 +49,7 @@ public class SavePoint : ScriptableObject
 
         var roomManager = RoomManager.Instance();
         roomManager.CurrentRoom.Value = Room;
-        roomManager.KnownRooms.KnownRooms = roomManager.CurrentRoom.Value.RoomPositions;
+        roomManager.KnownRooms.KnownRooms = KnownRooms;
 
         var roomPos = roomManager
             .GetRoom(Room.RoomX, Room.RoomY).transform.position;
