@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -11,6 +12,22 @@ public class SavePoint : ScriptableObject
     public Vector2Int[] KnownRooms;
     public bool Created;
     public int Slot;
+
+    [Serializable]
+    public struct SerializableTrigger
+    {
+        public bool Triggered{ get; set; }
+        public string Name { get; set; }
+    }
+
+    public struct SavePointStruct
+    {
+        public SerializableTrigger[] Triggers;
+        public RoomDefinition Room;
+        public Vector2Int[] KnownRooms;
+        public bool Created;
+        public int Slot;
+    }
 
     public void LoadFromSavePoint(SavePoint savePoint)
     {
@@ -69,10 +86,18 @@ public class SavePoint : ScriptableObject
                 })).ToArray();
 
         var saveFile = JsonConvert.SerializeObject(new
+            SavePointStruct
         {
-            Triggers,
-            Room,
-            KnownRooms
+            Triggers= Triggers.Select(t=> new SerializableTrigger
+            {
+                Triggered = t.Enabled,
+                Name = t.Trigger.name,
+            }).ToArray(),
+            Room = Room,
+            KnownRooms = KnownRooms,
+        }, new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         });
 
         return saveFile;
@@ -90,23 +115,32 @@ public class SavePoint : ScriptableObject
         return file;
     }
 
-    public static void CreateSaveFile(int slot, SavePoint savePoint)
+    public static void SaveFile(int slot, SavePoint savePoint)
     {
         var path = $"{Application.persistentDataPath}/saveFile{slot}.dat";
-        if (System.IO.File.Exists(path))
-        {
-            return;
-        }
-
         System.IO.File.WriteAllText(path, savePoint.Serialize());
     }
 
     public void Deserialize(string saveFile)
     {
-        var savePoint = JsonConvert.DeserializeObject<SavePoint>(saveFile);
+        var savePoint = JsonConvert.DeserializeObject<SavePointStruct>(saveFile);
         KnownRooms = savePoint.KnownRooms;
         Room = savePoint.Room;
-        Triggers = savePoint.Triggers;
+        Triggers = savePoint.Triggers.SelectMany(t =>
+        {
+            var trigger = AllTriggers.Triggers.FirstOrDefault(trigger => t.Name == trigger.name);
+
+            if (trigger == null) return Enumerable.Empty<TriggerSettings>();
+
+            return new[]
+            {
+                new TriggerSettings
+                {
+                    Enabled = t.Triggered,
+                    Trigger = trigger,
+                }
+            };
+        }).ToArray();
     }
 
 }

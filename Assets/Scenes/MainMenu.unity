@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SaveFile: {fileID: 11400000, guid: 25b30f7958f321a42ab9e75fdc8dd861, type: 2}
   EmptySaveFile: {fileID: 11400000, guid: ba5fea36c49f6ee4d8b5ae07b3176ad7, type: 2}
-  Debug: 1
+  Debug: 0
 --- !u!1 &338311065
 GameObject:
   m_ObjectHideFlags: 0
