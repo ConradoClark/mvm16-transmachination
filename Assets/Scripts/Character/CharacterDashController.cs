@@ -219,6 +219,7 @@ public class CharacterDashController : BaseMovementController
                 if (!onGround) performedAirDash = true;
                 _flicker = false;
                 _player.MoveController.BlockMovement(this);
+                _player.JumpController.Interrupt();
                 gravity.BlockForceFor(this, _player.PhysicsObject);
 
                 _eventPublisher.PublishEvent(DashEvents.OnDashStart);

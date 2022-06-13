@@ -63,7 +63,7 @@ public class DashCrystal : RoomObject
         Light.intensity = 0;
         var lightInfluence = new LerpBuilder(f => Sprite.material.SetFloat("_LightInfluence", f),
                 () => Sprite.material.GetFloat("_LightInfluence"))
-            .SetTarget(_initialLightInfluence + 0.15f)
+            .SetTarget(_initialLightInfluence + 0.55f)
             .Over(0.5f)
             .Easing(EasingYields.EasingFunction.CubicEaseOut)
             .UsingTimer(GameTimer)
