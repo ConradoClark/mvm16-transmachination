@@ -10,6 +10,7 @@ public class SavePoint : ScriptableObject
     public TriggerSettings[] Triggers;
     public RoomDefinition Room;
     public Vector2Int[] KnownRooms;
+    public ScriptableForm.CharacterForm HeadForm;
     public bool Created;
     public int Slot;
 
@@ -25,6 +26,7 @@ public class SavePoint : ScriptableObject
         public SerializableTrigger[] Triggers;
         public RoomDefinition Room;
         public Vector2Int[] KnownRooms;
+        public ScriptableForm.CharacterForm HeadForm;
         public bool Created;
         public int Slot;
     }
@@ -43,6 +45,7 @@ public class SavePoint : ScriptableObject
         KnownRooms = savePoint.KnownRooms;
         Created = savePoint.Created;
         Slot = savePoint.Slot;
+        HeadForm = savePoint.HeadForm;
     }
 
     public void Spawn()
@@ -58,6 +61,8 @@ public class SavePoint : ScriptableObject
         var player = Player.Instance();
         player.transform.position = Room.SpawnPosition;
         player.gameObject.SetActive(true);
+        player.Form.Eyes.Form = HeadForm;
+        player.UpdateForm();
 
         foreach (var trigger in Triggers)
         {
@@ -95,6 +100,7 @@ public class SavePoint : ScriptableObject
             }).ToArray(),
             Room = Room,
             KnownRooms = KnownRooms,
+            HeadForm = HeadForm
         }, new JsonSerializerSettings
         {
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -124,6 +130,7 @@ public class SavePoint : ScriptableObject
     public void Deserialize(string saveFile)
     {
         var savePoint = JsonConvert.DeserializeObject<SavePointStruct>(saveFile);
+        HeadForm = savePoint.HeadForm;
         KnownRooms = savePoint.KnownRooms;
         Room = savePoint.Room;
         Triggers = savePoint.Triggers.SelectMany(t =>

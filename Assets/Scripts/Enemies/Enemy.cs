@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour, IResettable
     private EffectsManager _effectsManager;
     private int _currentHitPoints;
 
+    public event Action OnDeath;
+
     private void Awake()
     {
         _defaultMachinery = DefaultMachinery.GetDefaultMachinery();
@@ -50,20 +52,33 @@ public class Enemy : MonoBehaviour, IResettable
         }
     }
 
+    public bool HasFullLife()
+    {
+        return _currentHitPoints >= HitPoints;
+    }
+
     private void HitDetector_OnHit(Hittable<DamageSource>.HitEventArgs obj)
     {
-        if (_effectsManager.HitNumberPool.TryGetFromPool(out var effect))
+        var pool = obj.DamageComponent.Damage.DamageAmount > 0
+            ? _effectsManager.HitNumberPool
+            : _effectsManager.DrainNumberPool;
+
+        if (pool.TryGetFromPool(out var effect))
         {
             // calculate damage elsewhere
             var damage = obj.DamageComponent.Damage.DamageAmount + Random.Range(-1, 2);
             effect.SetHitValue(damage);
             _currentHitPoints -= damage;
 
-            effect.transform.position = obj.Trigger.Target.transform.position + new Vector3(0, 0.15f) +
+            effect.transform.position = (obj.Trigger.Target == null ? transform.position : obj.Trigger.Target.transform.position) + new Vector3(0, 0.15f) +
                                         (Vector3)Random.insideUnitCircle * 0.25f;
         }
 
-        if (_currentHitPoints <= 0) gameObject.SetActive(false);
+        if (_currentHitPoints <= 0)
+        {
+            OnDeath?.Invoke();
+            gameObject.SetActive(false);
+        }
 
         _defaultMachinery.AddBasicMachine(Flash());
     }

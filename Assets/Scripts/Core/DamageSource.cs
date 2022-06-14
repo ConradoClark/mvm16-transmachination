@@ -32,6 +32,7 @@ public class DamageSource : MonoBehaviour
 
     private void Awake()
     {
+        if (Source == null) return;
         Source.AddCustomObject(this);
     }
 }

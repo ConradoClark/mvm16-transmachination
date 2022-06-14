@@ -27,7 +27,7 @@ public class HitNumberEffect : EffectPoolable
 
     public void SetHitValue(int value)
     {
-        TextComponent.text = value.ToString();
+        TextComponent.text = value > 0 ? value.ToString() : $"+{Math.Abs(value)}";
     }
 
     public IEnumerable<IEnumerable<Action>> Animate()

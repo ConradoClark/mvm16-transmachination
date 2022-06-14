@@ -72,8 +72,10 @@ public class Projectile : EffectPoolable
     {
         var collisionState = _physics.GetCollisionState(PhysicsObject);
         if (!collisionState.Horizontal.TriggeredHit
-            && (collisionState.Custom?.All(c=>!c.TriggeredHit) ?? true)
-            ) yield break;
+            && (collisionState.Custom?.All(c=>!c.TriggeredHit) ?? true)) yield break;
+
+
+        if (collisionState.Horizontal.Hits.Any(c => _physics.IsSemiSolid(c.collider))) yield break;
 
         _eventPublisher.PublishEvent(WeaponEvents.OnImpact,
             new WeaponEventArgs { Source = Source, Projectile = this });

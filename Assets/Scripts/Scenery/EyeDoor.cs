@@ -11,6 +11,7 @@ public class EyeDoor : RoomObject
     public Animator Animator;
     public Animator HandleAnimator;
     public RoomExit TargetRoomExit;
+    public Collider2D Collider;
     private Player _player;
 
     public override void PerformDestroy()
@@ -38,6 +39,12 @@ public class EyeDoor : RoomObject
     {
         HandleAnimator.speed = TriggerWatcher.Trigger.Triggered ? 1 : 0;
         Animator.speed = TriggerWatcher.Trigger.Triggered ? 0 : 1;
+
+        if (TriggerWatcher.Trigger.Triggered)
+        {
+            Collider.enabled = false;
+            HandleAnimator.gameObject.SetActive(false);
+        }
 
         return true;
     }

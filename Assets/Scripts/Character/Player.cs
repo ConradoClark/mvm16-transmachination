@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Licht.Impl.Orchestration;
 using Licht.Unity.CharacterControllers;
 using Licht.Unity.Objects;
 using Licht.Unity.Physics;
@@ -19,6 +21,18 @@ public class Player : SceneObject<Player>
     public PlayerStats Stats;
     public ScriptableFormComposition Form;
     public Transform AnimTransform;
+
+    private PlayerMorph _morph;
+    private void Awake()
+    {
+        _morph = PlayerMorph.Instance();
+        _morph.SetHeadForm(Form.Eyes);
+    }
+
+    public void UpdateForm()
+    {
+        _morph.SetHeadForm(Form.Eyes);
+    }
 
     public void Hide()
     {
@@ -44,5 +58,11 @@ public class Player : SceneObject<Player>
         JumpController.UnblockMovement(source);
         DashController.UnblockMovement(source);
         BlasterController.UnblockMovement(source);
+    }
+
+    public IEnumerable<IEnumerable<Action>> ChangeToHumanEyes()
+    {
+        yield return _morph.MorphHeadToHuman().AsCoroutine();
+        Form.Eyes.Form = ScriptableForm.CharacterForm.Human;
     }
 }

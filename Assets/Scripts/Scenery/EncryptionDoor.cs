@@ -43,7 +43,8 @@ public class EncryptionDoor : RoomObject
 
     public override bool Activate()
     {
-        _temporarilyOpen = Open = ActivationEvent != null && ActivationEvent.Source == TargetRoomExit;
+        _temporarilyOpen = Open = ActivationEvent != null && ActivationEvent.Source == TargetRoomExit &&
+                                  _player.Form.Eyes.Form == ScriptableForm.CharacterForm.Robot;
         Animator.SetBool("Open", Open);
         SetColliderState(!Open);
         if (_temporarilyOpen)

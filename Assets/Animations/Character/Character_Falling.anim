@@ -73,6 +73,17 @@ AnimationClip:
     path: RobotHead
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 7263576975990466320, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.16666667
+      value: {fileID: -4408963476007621159, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.33333334
+      value: {fileID: 7263576975990466320, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    attribute: m_Sprite
+    path: HumanEyes
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -115,6 +126,13 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 1314149895
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: -1554719468584838790, guid: 4703b64f99db7344d89125eff6eb8d8d, type: 3}
     - {fileID: -6993574750338864677, guid: 4703b64f99db7344d89125eff6eb8d8d, type: 3}
@@ -131,6 +149,9 @@ AnimationClip:
     - {fileID: -5187764344933430407, guid: e9703f418ef686b4a930c73601db8481, type: 3}
     - {fileID: -7476712706523458927, guid: e9703f418ef686b4a930c73601db8481, type: 3}
     - {fileID: -5187764344933430407, guid: e9703f418ef686b4a930c73601db8481, type: 3}
+    - {fileID: 7263576975990466320, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: -4408963476007621159, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: 7263576975990466320, guid: 41df1ed1b36d016419822355b8194661, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

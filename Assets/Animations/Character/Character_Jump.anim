@@ -77,7 +77,19 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -2263998926594542427, guid: c47c80063cbc3f54eb61a47592aa3896, type: 3}
+      value: {fileID: -6680636426744254673, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.05
+      value: {fileID: -2719038749123631522, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.11666667
+      value: {fileID: -8648657415597605166, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.18333334
+      value: {fileID: 1033769267736949176, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.28333333
+      value: {fileID: 7263576975990466320, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.38333333
+      value: {fileID: -4408963476007621159, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - time: 0.5
+      value: {fileID: -4408963476007621159, guid: 41df1ed1b36d016419822355b8194661, type: 3}
     attribute: m_Sprite
     path: HumanEyes
     classID: 212
@@ -191,7 +203,13 @@ AnimationClip:
     - {fileID: -1554719468584838790, guid: 4703b64f99db7344d89125eff6eb8d8d, type: 3}
     - {fileID: -6993574750338864677, guid: 4703b64f99db7344d89125eff6eb8d8d, type: 3}
     - {fileID: -6993574750338864677, guid: 4703b64f99db7344d89125eff6eb8d8d, type: 3}
-    - {fileID: -2263998926594542427, guid: c47c80063cbc3f54eb61a47592aa3896, type: 3}
+    - {fileID: -6680636426744254673, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: -2719038749123631522, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: -8648657415597605166, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: 1033769267736949176, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: 7263576975990466320, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: -4408963476007621159, guid: 41df1ed1b36d016419822355b8194661, type: 3}
+    - {fileID: -4408963476007621159, guid: 41df1ed1b36d016419822355b8194661, type: 3}
     - {fileID: 7245403118135700989, guid: e9703f418ef686b4a930c73601db8481, type: 3}
     - {fileID: -2104747663469268209, guid: e9703f418ef686b4a930c73601db8481, type: 3}
     - {fileID: 3626367489090428957, guid: e9703f418ef686b4a930c73601db8481, type: 3}

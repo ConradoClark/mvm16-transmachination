@@ -18,7 +18,7 @@ public abstract class Hittable<T> : MonoBehaviour where T : class
     private LichtPhysics _physics;
 
     public event Action<HitEventArgs> OnHit;
-    private IEventPublisher<HitEvents, HitEventArgs> _eventPublisher;
+    protected IEventPublisher<HitEvents, HitEventArgs> EventPublisher;
 
     public enum HitEvents
     {
@@ -36,7 +36,7 @@ public abstract class Hittable<T> : MonoBehaviour where T : class
         _defaultMachinery = DefaultMachinery.GetDefaultMachinery();
         _physics = this.GetLichtPhysics();
         _gameTimer = DefaultGameTimer.GetTimer();
-        _eventPublisher = this.RegisterAsEventPublisher<HitEvents, HitEventArgs>();
+        EventPublisher = this.RegisterAsEventPublisher<HitEvents, HitEventArgs>();
     }
 
     private void OnEnable()
@@ -59,12 +59,17 @@ public abstract class Hittable<T> : MonoBehaviour where T : class
                 };
 
                 OnHit?.Invoke(eventArgs);
-                _eventPublisher.PublishEvent(HitEvents.OnHit, eventArgs);
+                EventPublisher.PublishEvent(HitEvents.OnHit, eventArgs);
 
                 yield return TimeYields.WaitSeconds(_gameTimer, TriggerFrequencyInSeconds);
             }
             yield return TimeYields.WaitOneFrameX;
         }
+    }
+
+    public void ForceInvoke(HitEventArgs eventArgs)
+    {
+        OnHit?.Invoke(eventArgs);
     }
 
     public abstract bool ValidateHitSource(T hitSource);
