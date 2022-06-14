@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Licht.Impl.Events;
 using Licht.Impl.Orchestration;
+using Licht.Interfaces.Events;
 using Licht.Unity.Extensions;
 using Licht.Unity.Physics;
 using Licht.Unity.Pooling;
@@ -17,15 +19,19 @@ public class Projectile : EffectPoolable
     public float MaximumTimeInMs;
     public SpriteRenderer SpriteRenderer;
 
+    public LichtPhysicsObject Source { get; set; }
+
     private LichtPhysics _physics;
     private BasicMachinery<object> _machinery;
     private EffectsManager _effectsManager;
+    private IEventPublisher<WeaponEvents, WeaponEventArgs> _eventPublisher;
 
     protected void Awake()
     {
         _machinery = DefaultMachinery.GetDefaultMachinery();
         _physics = this.GetLichtPhysics();
         _effectsManager = EffectsManager.Instance();
+        _eventPublisher = this.RegisterAsEventPublisher<WeaponEvents, WeaponEventArgs>();
     }
     public override void OnActivation()
     {   
@@ -68,6 +74,9 @@ public class Projectile : EffectPoolable
         if (!collisionState.Horizontal.TriggeredHit
             && (collisionState.Custom?.All(c=>!c.TriggeredHit) ?? true)
             ) yield break;
+
+        _eventPublisher.PublishEvent(WeaponEvents.OnImpact,
+            new WeaponEventArgs { Source = Source, Projectile = this });
 
         if (!string.IsNullOrWhiteSpace(EffectOnCollision))
         {

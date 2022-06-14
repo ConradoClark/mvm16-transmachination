@@ -69,6 +69,8 @@ public class Blaster : BaseMovementController
                             -0.05f + Random.value * 0.15f);
                     obj.Speed = ProjectileSpeed * (_player.DashController.IsDashing ? 1.5f: 1);
 
+                    obj.Source = _player.PhysicsObject;
+
                     DefaultMachinery.AddBasicMachine(Recoil(new Vector2(obj.Direction.x,0)));
 
                     _eventPublisher.PublishEvent(WeaponEvents.OnShoot,
