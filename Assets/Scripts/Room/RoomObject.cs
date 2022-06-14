@@ -22,6 +22,7 @@ public abstract class RoomObject : BaseObject, IResettable, IInitializable, IAct
     public RoomScriptable CurrentRoom;
     protected Room Room;
     protected RoomExit.RoomExitEventArgs ActivationEvent;
+    protected virtual bool Instant { get; } = false;
 
     protected override void UnityAwake()
     {
@@ -78,7 +79,7 @@ public abstract class RoomObject : BaseObject, IResettable, IInitializable, IAct
 
     private IEnumerable<IEnumerable<Action>> DeactivateAfterDelay()
     {
-        yield return TimeYields.WaitSeconds(GameTimer, 0.5f);
+        if (!Instant) yield return TimeYields.WaitSeconds(GameTimer, 0.5f);
         if (Room.RoomDefinition != CurrentRoom.Value)
         {
             gameObject.SetActive(false);
