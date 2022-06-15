@@ -35,6 +35,7 @@ public class Capsule : RoomObject
     private Letterbox _letterbox;
     private GameSpawn _gameSpawn;
     private CheckpointSaved _checkpointSavedMsg;
+    private GameMusic _gameMusic;
 
     private IEnumerable<IEnumerable<Action>> HandleCapsule()
     {
@@ -91,6 +92,7 @@ public class Capsule : RoomObject
     {
         yield return TimeYields.WaitOneFrameX;
 
+        _gameMusic.Song.Pause();
         EnterCapsuleSound.Play();
         DefaultMachinery.AddBasicMachine(_letterbox.ShowLetterbox());
         DefaultMachinery.AddBasicMachine(FlickerCrystalLights());
@@ -136,6 +138,7 @@ public class Capsule : RoomObject
         yield return _letterbox.ShowCursor(true).AsCoroutine();
         yield return _letterbox.HideLetterbox().AsCoroutine();
 
+        _gameMusic.Song.UnPause();
         SetCheckpoint();
     }
 
@@ -168,6 +171,7 @@ public class Capsule : RoomObject
         _letterbox = Letterbox.Instance();
         _gameSpawn = GameSpawn.Instance();
         _checkpointSavedMsg = CheckpointSaved.Instance();
+        _gameMusic = GameMusic.Instance();
     }
 
     public override bool Activate()

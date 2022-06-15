@@ -100,7 +100,7 @@ public class SavePoint : ScriptableObject
             }).ToArray(),
             Room = Room,
             KnownRooms = KnownRooms,
-            HeadForm = HeadForm,
+            HeadForm = Player.Instance() != null ? Player.Instance().Form.Eyes.Form : HeadForm,
             Created = Created,
             Slot = Slot
         }, new JsonSerializerSettings

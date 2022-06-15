@@ -18,6 +18,7 @@ public class GameStartTrigger : RoomObject
     private Collider2D[] _results;
     private Letterbox _letterbox;
     private Player _player;
+    private GameMusic _gameMusic;
 
     public override bool PerformReset()
     {
@@ -41,6 +42,7 @@ public class GameStartTrigger : RoomObject
         _results = new Collider2D[1];
         _letterbox = Letterbox.Instance();
         _player = Player.Instance();
+        _gameMusic = GameMusic.Instance();
     }
 
     public override bool Activate()
@@ -62,6 +64,8 @@ public class GameStartTrigger : RoomObject
             yield return TimeYields.WaitMilliseconds(GameTimer, 30);
         }
 
+        _gameMusic.Song.Pause();
+
         Trigger.Trigger.Triggered = true;
         yield return _letterbox.ShowLetterbox().AsCoroutine();
 
@@ -80,6 +84,7 @@ public class GameStartTrigger : RoomObject
 
         yield return _letterbox.ShowCursor(true).AsCoroutine();
 
+        _gameMusic.Song.UnPause();
         yield return _letterbox.HideLetterbox().AsCoroutine();
     }
 

@@ -9,6 +9,7 @@ public abstract class MainMenuUIButton : UIAction
     public Color SelectedColor;
     public Color UnselectedColor;
     public AudioSource ClickSound;
+    public RandomPitchAudio SelectSound;
 
     protected MainMenuEffects MainMenuEffects;
 
@@ -23,6 +24,7 @@ public abstract class MainMenuUIButton : UIAction
 
     public override void OnSelect(bool manual)
     {
+        if (SelectSound != null && manual) SelectSound.Play();
         Selected = true;
         AdjustColor();
     }

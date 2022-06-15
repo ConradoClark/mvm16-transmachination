@@ -19,6 +19,7 @@ public class BossDeath : BaseObject
     private PrefabPool _explosion;
     private Letterbox _letterbox;
     private Player _player;
+    private GameMusic _gameMusic;
 
     protected override void UnityAwake()
     {
@@ -27,6 +28,7 @@ public class BossDeath : BaseObject
         _explosion = _effects.GetEffect("BossExplosion");
         _letterbox = Letterbox.Instance();
         _player = Player.Instance();
+        _gameMusic = GameMusic.Instance();
     }
     private void OnEnable()
     {
@@ -73,6 +75,8 @@ public class BossDeath : BaseObject
         yield return _letterbox.ShowCursor(true).AsCoroutine();
 
         yield return _letterbox.HideLetterbox().AsCoroutine();
+
+        _gameMusic.Song.Play();
 
         Trigger.Triggered = true;
         Trigger2.Triggered = true;

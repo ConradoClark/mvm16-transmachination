@@ -17,6 +17,7 @@ public class BossTrigger : RoomObject
     private bool _hooked;
 
     public AudioSource BossMusic;
+    private GameMusic _gameMusic;
 
     public override bool PerformReset()
     {
@@ -28,6 +29,7 @@ public class BossTrigger : RoomObject
     {
         _letterbox = Letterbox.Instance();
         _results = new Collider2D[1];
+        _gameMusic = GameMusic.Instance();
     }
 
     public override bool Activate()
@@ -59,6 +61,8 @@ public class BossTrigger : RoomObject
             if (!_hooked) yield break;
             yield return TimeYields.WaitMilliseconds(GameTimer, 30);
         }
+
+        _gameMusic.Song.Stop();
 
         Silhouette.enabled = true;
         yield return _letterbox.ShowLetterbox().AsCoroutine();

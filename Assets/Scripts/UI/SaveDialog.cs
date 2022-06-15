@@ -41,6 +41,7 @@ public class SaveDialog : SceneObject<SaveDialog>
 
     private void SaveCheckpoint(RoomDefinition room)
     {
+        Checkpoint.HeadForm = _player.Form.Eyes.Form;
         Checkpoint.Triggers = CurrentSave.AllTriggers.Triggers.Select(s =>
             new TriggerSettings
             {
@@ -80,6 +81,7 @@ public class SaveDialog : SceneObject<SaveDialog>
 
             CurrentSave.KnownRooms = KnownRoomsRef.KnownRooms;
             CurrentSave.Room = room;
+            CurrentSave.HeadForm = _player.Form.Eyes.Form;
 
             SavePoint.SaveFile(CurrentSave.Slot, CurrentSave);
 
