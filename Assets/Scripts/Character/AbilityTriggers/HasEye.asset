@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd1ab3ecf31afc4887bba4e07ca562b, type: 3}
   m_Name: HasEye
   m_EditorClassIdentifier: 
-  <Triggered>k__BackingField: 0
+  <Triggered>k__BackingField: 1
   Type: 0
