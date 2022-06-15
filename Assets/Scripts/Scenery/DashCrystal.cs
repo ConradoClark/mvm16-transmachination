@@ -113,7 +113,7 @@ public class DashCrystal : RoomObject
         {
             Light.enabled = true;
             Light.intensity = _initialLightIntensity;
-            Sprite.material.SetFloat("_LightInfluence", _initialLightInfluence+0.15f);
+            Sprite.material.SetFloat("_LightInfluence", _initialLightInfluence+ 0.55f);
         }
         else
         {

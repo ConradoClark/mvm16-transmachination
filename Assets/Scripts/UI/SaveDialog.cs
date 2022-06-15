@@ -17,6 +17,9 @@ public class SaveDialog : SceneObject<SaveDialog>
 
     public KnownRoomsScriptable KnownRoomsRef;
     public SavePoint CurrentSave;
+    public SavePoint Checkpoint;
+    private CheckpointSaved _checkpointSaved;
+    private BasicMachinery<object> _defaultMachinery;
 
     [Serializable]
     public enum SaveDialogOption
@@ -32,7 +35,24 @@ public class SaveDialog : SceneObject<SaveDialog>
         _uiTimer = DefaultUITimer.GetTimer();
         _player = Player.Instance();
         _playerInput= PlayerInput.GetPlayerByIndex(0);
+        _checkpointSaved = CheckpointSaved.Instance();
+        _defaultMachinery = DefaultMachinery.GetDefaultMachinery();
     }
+
+    private void SaveCheckpoint(RoomDefinition room)
+    {
+        Checkpoint.Triggers = CurrentSave.AllTriggers.Triggers.Select(s =>
+            new TriggerSettings
+            {
+                Enabled = s.Triggered,
+                Trigger = s
+            }).ToArray();
+
+        Checkpoint.KnownRooms = KnownRoomsRef.KnownRooms;
+        Checkpoint.Room = room;
+        _defaultMachinery.AddBasicMachine(_checkpointSaved.ShowCheckpointSaved());
+    }
+
     public IEnumerable<IEnumerable<Action>> ShowDialog(RoomDefinition room, TMP_Text gameSavedText)
     {
         Container.gameObject.SetActive(true);
@@ -40,6 +60,9 @@ public class SaveDialog : SceneObject<SaveDialog>
         _player.BlockAllMovement(this);
         _playerInput.SwitchCurrentActionMap("UI");
         DialogOption = null;
+
+        _player.Stats.ResetHitPoints();
+        SaveCheckpoint(room);
 
         while (DialogOption == null)
         {

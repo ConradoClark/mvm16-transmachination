@@ -5,6 +5,7 @@ public class FileSelect : MonoBehaviour
 {
     public SavePoint SaveFile;
     public SavePoint EmptySaveFile;
+    public int Slot;
     public bool Debug;
 
     private void Awake()
@@ -13,10 +14,9 @@ public class FileSelect : MonoBehaviour
         var file = SavePoint.LoadFile(SaveFile.Slot);
         if (file == null)
         {
-            var slot = SaveFile.Slot;
             SaveFile = EmptySaveFile;
-            SaveFile.Slot = slot;
+            SaveFile.Slot = Slot;
         }
-        else SaveFile.Deserialize(file);
+        else SaveFile.Deserialize(file, Slot);
     }
 }

@@ -7,11 +7,16 @@ public class PlayerStats : MonoBehaviour
     public int MaxHitPoints;
     public int CurrentHitPoints { get; private set; }
 
+    public int MaxEnergy;
+    public int CurrentEnergy { get; private set; }
+
     private IEventPublisher<StatChangeEvent, StatChangeEventArgs> _eventPublisher;
 
     public enum StatChangeEvent
     {
         OnHitPointsChanged,
+        OnEnergyChanged,
+        OnEnergyFailedConsumption,
         OnDeath
     }
 
@@ -23,6 +28,7 @@ public class PlayerStats : MonoBehaviour
     private void Awake()
     {
         CurrentHitPoints = MaxHitPoints;
+        CurrentEnergy = MaxEnergy;
     }
 
     private void OnEnable()
@@ -38,7 +44,9 @@ public class PlayerStats : MonoBehaviour
     public void ResetHitPoints()
     {
         CurrentHitPoints = MaxHitPoints;
+        CurrentEnergy = MaxEnergy;
         _eventPublisher.PublishEvent(StatChangeEvent.OnHitPointsChanged, new StatChangeEventArgs { CurrentValue = CurrentHitPoints });
+        _eventPublisher.PublishEvent(StatChangeEvent.OnEnergyChanged, new StatChangeEventArgs { CurrentValue = CurrentEnergy });
     }
 
     public void TakeDamage(int damage)
@@ -53,5 +61,28 @@ public class PlayerStats : MonoBehaviour
         {
             _eventPublisher.PublishEvent(StatChangeEvent.OnDeath, new StatChangeEventArgs());
         }
+    }
+
+    public void RestoreEnergy(int energy)
+    {
+        if (CurrentEnergy == MaxEnergy) return;
+
+        CurrentEnergy += energy;
+        if (CurrentEnergy > MaxEnergy) CurrentEnergy = MaxEnergy;
+        _eventPublisher.PublishEvent(StatChangeEvent.OnEnergyChanged, new StatChangeEventArgs { CurrentValue = CurrentEnergy });
+    }
+
+    public bool ConsumeEnergy(int energy)
+    {
+        if (CurrentEnergy < energy)
+        {
+            _eventPublisher.PublishEvent(StatChangeEvent.OnEnergyFailedConsumption, new StatChangeEventArgs { CurrentValue = CurrentEnergy });
+            return false;
+        }
+
+        CurrentEnergy -= energy;
+
+        _eventPublisher.PublishEvent(StatChangeEvent.OnEnergyChanged, new StatChangeEventArgs { CurrentValue = CurrentEnergy });
+        return true;
     }
 }

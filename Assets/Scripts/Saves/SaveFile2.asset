@@ -17,8 +17,9 @@ MonoBehaviour:
   Room:
     RoomX: 0
     RoomY: 0
-    RoomSize: {x: 0, y: 0}
-    SpawnPosition: {x: 0, y: 0, z: 0}
+    RoomSize: {x: 1, y: 1}
+    SpawnPosition: {x: -2.5, y: -1.5, z: 0}
   KnownRooms: []
+  HeadForm: 0
   Created: 0
   Slot: 2

@@ -7,6 +7,7 @@ using Licht.Unity.Builders;
 using TMPro;
 using UnityEngine;
 
+[DefaultExecutionOrder(1)]
 public class UIArmorUpdater : MonoBehaviour
 {
     public TMP_Text TextComponent;

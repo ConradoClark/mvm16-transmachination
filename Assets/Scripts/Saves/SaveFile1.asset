@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: SaveFile1
   m_EditorClassIdentifier: 
   AllTriggers: {fileID: 11400000, guid: c0b4d44210bcb44448b8ed114b47d7d5, type: 2}
-  Triggers:
-  - Trigger: {fileID: 11400000, guid: 7d3392f399a16e84bae72bc5cc8f74d6, type: 2}
-    Enabled: 1
-  - Trigger: {fileID: 11400000, guid: 606a661cb9d11fe4f93bd8b1e60077e6, type: 2}
-    Enabled: 1
+  Triggers: []
   Room:
     RoomX: 0
     RoomY: 0
     RoomSize: {x: 1, y: 1}
-    SpawnPosition: {x: 2, y: 1, z: 0}
+    SpawnPosition: {x: -2.5, y: -1.5, z: 0}
   KnownRooms: []
-  Created: 1
+  HeadForm: 0
+  Created: 0
   Slot: 1

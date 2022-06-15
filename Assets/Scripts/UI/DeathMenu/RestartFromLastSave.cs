@@ -9,9 +9,9 @@ public class RestartFromLastSave : UIAction
     private GameSpawn _spawn;
     public override IEnumerable<IEnumerable<Action>> DoAction()
     {
-        _player.Stats.ResetHitPoints();
         _player.UnblockAllMovement(_death.DeathEffects);
         _spawn.SpawnFromLastSave();
+        _player.Stats.ResetHitPoints();
 
         yield return _death.DeathEffects.Respawn().AsCoroutine();
     }

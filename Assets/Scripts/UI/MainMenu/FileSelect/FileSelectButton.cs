@@ -75,6 +75,11 @@ public class FileSelectButton : MainMenuUIButton
 
         MenuContext.gameObject.SetActive(false);
 
+        if (!FileSelect.SaveFile.Created)
+        {
+            FileSelect.SaveFile.Created = true;
+        }
+
         CurrentSavePoint.LoadFromSavePoint(FileSelect.SaveFile);
 
         DefaultMachinery.FinalizeWith(() =>

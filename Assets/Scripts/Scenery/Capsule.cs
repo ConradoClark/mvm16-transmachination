@@ -24,6 +24,9 @@ public class Capsule : RoomObject
     public string BottomText;
     public string BottomCaption;
 
+    public AudioSource EnterCapsuleSound;
+    public AudioSource CapsuleClickSound;
+
     public KnownRoomsScriptable KnownRoomsRef;
 
     private Player _player;
@@ -31,6 +34,7 @@ public class Capsule : RoomObject
     private PrefabPool _capsuleParticles;
     private Letterbox _letterbox;
     private GameSpawn _gameSpawn;
+    private CheckpointSaved _checkpointSavedMsg;
 
     private IEnumerable<IEnumerable<Action>> HandleCapsule()
     {
@@ -87,6 +91,7 @@ public class Capsule : RoomObject
     {
         yield return TimeYields.WaitOneFrameX;
 
+        EnterCapsuleSound.Play();
         DefaultMachinery.AddBasicMachine(_letterbox.ShowLetterbox());
         DefaultMachinery.AddBasicMachine(FlickerCrystalLights());
         DefaultMachinery.AddBasicMachine(SummonParticles());
@@ -95,7 +100,7 @@ public class Capsule : RoomObject
             .Color
             .ToColor(InactiveColor)
             .SetTarget(1)
-            .Over(5f)
+            .Over(6.5f)
             .UsingTimer(GameTimer)
             .Easing(EasingYields.EasingFunction.SineEaseInOut)
             .Build();
@@ -104,6 +109,8 @@ public class Capsule : RoomObject
 
         CapsuleLight.intensity = 4f;
         BeamRenderer.color = FlashColor;
+
+        CapsuleClickSound.Play();
 
         var colorToInactiveAgain = BeamRenderer.GetAccessor()
             .Color
@@ -130,7 +137,6 @@ public class Capsule : RoomObject
         yield return _letterbox.HideLetterbox().AsCoroutine();
 
         SetCheckpoint();
-        // show a checkpoint saved message
     }
 
     private void SetCheckpoint()
@@ -147,6 +153,7 @@ public class Capsule : RoomObject
 
         _gameSpawn.CheckPoint.KnownRooms = KnownRoomsRef.KnownRooms;
         _gameSpawn.CheckPoint.Room = CurrentRoom.Value;
+        DefaultMachinery.AddBasicMachine(_checkpointSavedMsg.ShowCheckpointSaved());
     }
 
     public override bool PerformReset()
@@ -160,6 +167,7 @@ public class Capsule : RoomObject
         _capsuleParticles = EffectsManager.Instance().GetEffect("CapsuleParticle");
         _letterbox = Letterbox.Instance();
         _gameSpawn = GameSpawn.Instance();
+        _checkpointSavedMsg = CheckpointSaved.Instance();
     }
 
     public override bool Activate()

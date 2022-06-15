@@ -27,6 +27,7 @@ public class CharacterDashController : BaseMovementController
     public LichtPhysicsObject DashBashCollider;
     public ScriptableTrigger AllowDashBash;
     public Color DashBashColor;
+    public int DashEnergyConsumption;
 
     private readonly Color _transparent = new Color(0, 0, 0, 0);
 
@@ -210,7 +211,7 @@ public class CharacterDashController : BaseMovementController
             var canDash = (AllowAirDash.Triggered && !performedAirDash) || onGround;
             if (onGround) performedAirDash = false;
 
-            if (!IsBlocked && canDash && dashInput.WasPerformedThisFrame())
+            if (!IsBlocked && canDash && dashInput.WasPerformedThisFrame() && _player.Stats.ConsumeEnergy(DashEnergyConsumption))
             {
                 IsDashing = true;
 

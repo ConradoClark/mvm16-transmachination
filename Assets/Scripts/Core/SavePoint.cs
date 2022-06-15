@@ -100,7 +100,9 @@ public class SavePoint : ScriptableObject
             }).ToArray(),
             Room = Room,
             KnownRooms = KnownRooms,
-            HeadForm = HeadForm
+            HeadForm = HeadForm,
+            Created = Created,
+            Slot = Slot
         }, new JsonSerializerSettings
         {
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -127,9 +129,11 @@ public class SavePoint : ScriptableObject
         System.IO.File.WriteAllText(path, savePoint.Serialize());
     }
 
-    public void Deserialize(string saveFile)
+    public void Deserialize(string saveFile, int slot)
     {
         var savePoint = JsonConvert.DeserializeObject<SavePointStruct>(saveFile);
+        Slot = slot;
+        Created = true;
         HeadForm = savePoint.HeadForm;
         KnownRooms = savePoint.KnownRooms;
         Room = savePoint.Room;

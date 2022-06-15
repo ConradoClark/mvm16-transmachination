@@ -12,9 +12,9 @@ public class RestartFromCheckpoint : UIAction
 
     public override IEnumerable<IEnumerable<Action>> DoAction()
     {
-        _player.Stats.ResetHitPoints();
         _player.UnblockAllMovement(_death.DeathEffects);
         _spawn.SpawnFromCheckpoint();
+        _player.Stats.ResetHitPoints();
 
         yield return _death.DeathEffects.Respawn().AsCoroutine();
     }
