@@ -1,4 +1,3 @@
-using System;
 using Licht.Impl.Events;
 using Licht.Interfaces.Events;
 using Licht.Unity.Objects;

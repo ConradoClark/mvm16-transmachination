@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Licht.Impl.Orchestration;
-using Licht.Unity.Pooling;
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]

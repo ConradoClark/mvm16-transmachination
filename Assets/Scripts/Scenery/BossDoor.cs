@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Licht.Impl.Orchestration;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class BossDoor : RoomObject
@@ -47,7 +45,7 @@ public class BossDoor : RoomObject
 
     public override bool Activate()
     {
-        _temporarilyOpen = Open = ActivationEvent != null && ActivationEvent.Source == TargetRoomExit;
+        _temporarilyOpen = Open = TriggerWatcher.Trigger.Triggered || (ActivationEvent != null && ActivationEvent.Source == TargetRoomExit);
         Animator.SetBool("Open", Open);
         Collider.enabled = !Open;
         if (_temporarilyOpen && !TriggerWatcher.Trigger.Triggered)

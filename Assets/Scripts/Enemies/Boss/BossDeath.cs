@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Licht.Impl.Orchestration;
 using Licht.Unity.Pooling;
@@ -68,6 +67,9 @@ public class BossDeath : BaseObject
         yield return _player.ChangeToHumanEyes().AsCoroutine();
 
         yield return _letterbox.ShowBottomText("You now have the curse of the flesh.").AsCoroutine();
+        yield return _letterbox.ShowCursor(true).AsCoroutine();
+
+        yield return _letterbox.ShowBottomText("You can't help but wonder... what might have changed?").AsCoroutine();
         yield return _letterbox.ShowCursor(true).AsCoroutine();
 
         yield return _letterbox.HideLetterbox().AsCoroutine();

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Licht.Impl.Orchestration;
 using Licht.Unity.CharacterControllers;
@@ -31,7 +30,7 @@ public class Player : SceneObject<Player>
 
     public void UpdateForm()
     {
-        _morph.SetHeadForm(Form.Eyes);
+        if (_morph!=null) _morph.SetHeadForm(Form.Eyes);
     }
 
     public void Hide()

@@ -1,7 +1,5 @@
 using Licht.Impl.Memory;
 using Licht.Unity.Physics;
-using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class DamageSource : MonoBehaviour

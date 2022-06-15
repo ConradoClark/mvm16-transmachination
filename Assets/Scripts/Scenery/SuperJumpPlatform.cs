@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Licht.Impl.Events;
 using Licht.Impl.Orchestration;
 using Licht.Unity.Builders;
 using Licht.Unity.CharacterControllers;
-using Licht.Unity.Extensions;
 using UnityEngine;
 
 public class SuperJumpPlatform : RoomObject

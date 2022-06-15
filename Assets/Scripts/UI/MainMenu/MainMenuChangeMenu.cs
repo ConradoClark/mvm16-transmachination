@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Licht.Impl.Orchestration;
 using Licht.Interfaces.Time;
 using Licht.Unity.Extensions;
-using UnityEditor.U2D.IK;
 using UnityEngine;
 
 public class MainMenuChangeMenu: MainMenuUIButton

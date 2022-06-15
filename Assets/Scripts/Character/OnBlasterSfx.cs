@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using Licht.Impl.Events;
-using Licht.Unity.CharacterControllers;
 using UnityEngine;
 
 public class OnBlasterSfx : MonoBehaviour

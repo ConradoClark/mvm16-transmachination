@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Licht.Impl.Orchestration;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class EyeDoor : RoomObject
@@ -28,11 +23,20 @@ public class EyeDoor : RoomObject
     {
         _player = Player.Instance();
         TriggerWatcher.OnTriggerChanged += TriggerWatcher_OnTriggerChanged;
+        if (TriggerWatcher.Trigger.Triggered)
+        {
+            Collider.enabled = false;
+            HandleAnimator.gameObject.SetActive(false);
+        }
     }
 
     private void TriggerWatcher_OnTriggerChanged(bool obj)
     {
-        
+        if (TriggerWatcher.Trigger.Triggered)
+        {
+            Collider.enabled = false;
+            HandleAnimator.gameObject.SetActive(false);
+        }
     }
 
     public override bool Activate()
