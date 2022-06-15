@@ -14,6 +14,8 @@ public class CharacterGettingHit : BaseObject
 
     public float BlinkFrequencyInMs;
 
+    public RandomPitchAudio Sound;
+
     private Player _player;
     private bool _blink;
     private float _originalLightInfluence;
@@ -36,6 +38,10 @@ public class CharacterGettingHit : BaseObject
     {
         _blink = true;
 
+        if (_player.Stats.CurrentHitPoints <= 0) yield break;
+
+
+        Sound.Play();
         _player.Stats.TakeDamage(obj.DamageComponent.Damage.DamageAmount);
 
         if (_effectsManager.HitNumberPool.TryGetFromPool(out var effect))

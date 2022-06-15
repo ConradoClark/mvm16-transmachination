@@ -53,10 +53,23 @@ public class MoveCameraToNextArea : BaseObject
         {
             if (obj.Source.Direction.x!=0 || obj.Source.ToRoom.RoomDefinition.RoomSize.x == 1)
             {
+
+                var nearestX = obj.Source.ToRoom.transform.position.x;
+                foreach (var pos in obj.Source.ToRoom.RoomDefinition.RoomPositions)
+                {
+                    var next = pos.x * 15;
+                    if (Mathf.Abs(next - _player.transform.position.x) < Mathf.Abs(nearestX - _player.transform.position.x))
+                    {
+                        nearestX = next;
+                    }
+                }
+
+
                 hori = _camera.transform.GetAccessor()
                     .Position
                     .X
-                    .SetTarget(obj.Source.ToRoom.RoomDefinition.RoomSize.x > 1 && obj.Source.Direction.x == 0 ? _player.transform.position.x : obj.Source.ToRoom.transform.position.x)
+                    .SetTarget(obj.Source.ToRoom.RoomDefinition.RoomSize.x > 1 && obj.Source.Direction.x == 0 ? _player.transform.position.x :
+                        nearestX)
                     .Over(0.4f)
                     .Easing(EasingYields.EasingFunction.CubicEaseOut)
                     .UsingTimer(_uiTimer)

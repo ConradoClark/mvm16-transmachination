@@ -15,12 +15,24 @@ public class Minimap : BaseObject
     protected void OnDestroy()
     {
         this.StopObservingEvent<RoomExit.RoomExitEvents, RoomExit.RoomExitEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnExit);
+        this.StopObservingEvent<RoomExit.RoomExitEvents, RoomExit.RespawnEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnSpawn);
     }
 
     protected override void UnityAwake()
     {
         _roomManager = RoomManager.Instance();
         this.ObserveEvent<RoomExit.RoomExitEvents, RoomExit.RoomExitEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnExit);
+        this.ObserveEvent<RoomExit.RoomExitEvents, RoomExit.RespawnEventArgs>(RoomExit.RoomExitEvents.OnRoomExit, OnSpawn);
+    }
+
+    private void OnSpawn(RoomExit.RespawnEventArgs obj)
+    {
+        var roomPos = new Vector2Int(obj.ToRoom.RoomX, obj.ToRoom.RoomY);
+        if (!_roomManager.KnownRooms.KnownRoomsSet.Contains(roomPos))
+        {
+            _roomManager.KnownRooms.KnownRooms = _roomManager.KnownRooms.KnownRooms.Union(obj.ToRoom.RoomPositions).ToArray();
+        }
+        DrawMap();
     }
 
     private void OnExit(RoomExit.RoomExitEventArgs obj)

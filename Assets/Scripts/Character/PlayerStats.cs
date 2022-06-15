@@ -12,6 +12,8 @@ public class PlayerStats : MonoBehaviour
 
     private IEventPublisher<StatChangeEvent, StatChangeEventArgs> _eventPublisher;
 
+    public AudioSource Death;
+
     public enum StatChangeEvent
     {
         OnHitPointsChanged,
@@ -60,6 +62,7 @@ public class PlayerStats : MonoBehaviour
         if (CurrentHitPoints == 0)
         {
             _eventPublisher.PublishEvent(StatChangeEvent.OnDeath, new StatChangeEventArgs());
+            Death.Play();
         }
     }
 
