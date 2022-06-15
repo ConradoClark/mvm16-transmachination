@@ -80,7 +80,7 @@ public class RoomExit : MonoBehaviour
             var down = Direction == Vector2Int.down && _player.transform.position.y < transform.position.y &&
                        CurrentRoom.Value == FromRoom.RoomDefinition;
 
-            if (right || left || up || down)
+            if ((right || left || up || down) && Vector2.Distance(_player.transform.position, transform.position) < 4f)
             {
                 CurrentRoom.Value = ToRoom.RoomDefinition;
                 FireRoomExitEvent();

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0771c062c8cd304b93e94c0d02094cc, type: 3}
   m_Name: Eyes
   m_EditorClassIdentifier: 
-  Form: 1
+  Form: 0

@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Static: 0
+  Ghost: 0
   HorizontalCollider: {fileID: 4246055691520313474}
   VerticalCollider: {fileID: 4246055691520313474}
   CustomCollisionChecks:
@@ -188,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Source: {fileID: 4246055691520313475}
   SourceType: 0
-  Damage: {fileID: 11400000, guid: 94c81eb7e4560bd4383070a67ba8e173, type: 2}
+  Damage: {fileID: 11400000, guid: 979359cbf278ca446a36f39f231247ec, type: 2}
   Enabled: 1
 --- !u!1 &4246055692859395936
 GameObject:

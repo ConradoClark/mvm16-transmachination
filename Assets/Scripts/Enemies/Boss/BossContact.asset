@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BossContact
   m_EditorClassIdentifier: 
   DamageType: 2
-  DamageAmount: 10
+  DamageAmount: 15

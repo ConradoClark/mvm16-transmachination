@@ -1,3 +1,4 @@
+using System.Linq;
 using Licht.Impl.Events;
 using Licht.Interfaces.Events;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class PlayerStats : MonoBehaviour
 
     public AudioSource Death;
 
+    public AllTriggers AllTriggers;
+
     public enum StatChangeEvent
     {
         OnHitPointsChanged,
@@ -29,8 +32,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
-        CurrentHitPoints = MaxHitPoints;
-        CurrentEnergy = MaxEnergy;
+        CurrentHitPoints = MaxHitPoints += AllTriggers.Triggers.Count(t => t.Triggered && t.Type == ScriptableTrigger.TriggerType.ArmorUp) * 20;
+        CurrentEnergy = MaxEnergy += AllTriggers.Triggers.Count(t => t.Triggered && t.Type == ScriptableTrigger.TriggerType.EnergyUp) * 100;
     }
 
     private void OnEnable()
@@ -87,5 +90,19 @@ public class PlayerStats : MonoBehaviour
 
         _eventPublisher.PublishEvent(StatChangeEvent.OnEnergyChanged, new StatChangeEventArgs { CurrentValue = CurrentEnergy });
         return true;
+    }
+
+    public void IncreaseMaxArmor()
+    {
+        MaxHitPoints += 20;
+        CurrentHitPoints += 20;
+        _eventPublisher.PublishEvent(StatChangeEvent.OnHitPointsChanged, new StatChangeEventArgs { CurrentValue = CurrentHitPoints });
+    }
+
+    public void IncreaseMaxEnergy()
+    {
+        MaxEnergy += 100;
+        CurrentEnergy += 100;
+        _eventPublisher.PublishEvent(StatChangeEvent.OnEnergyChanged, new StatChangeEventArgs { CurrentValue = CurrentEnergy });
     }
 }

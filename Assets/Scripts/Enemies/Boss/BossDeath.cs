@@ -69,7 +69,7 @@ public class BossDeath : BaseObject
         yield return _letterbox.ShowBottomText("You now have the curse of the flesh.").AsCoroutine();
         yield return _letterbox.ShowCursor(true).AsCoroutine();
 
-        yield return _letterbox.ShowBottomText("You can't help but wonder... what might have changed?").AsCoroutine();
+        yield return _letterbox.ShowBottomText("-- Self-scan complete... 80% Robot. Unable to remove parasitic entity --").AsCoroutine();
         yield return _letterbox.ShowCursor(true).AsCoroutine();
 
         yield return _letterbox.HideLetterbox().AsCoroutine();

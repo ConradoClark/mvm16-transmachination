@@ -69,6 +69,9 @@ public class BossTrigger : RoomObject
         yield return _letterbox.ShowBottomText("A corrupted, pulsating eye, gazes upon you.").AsCoroutine();
         yield return _letterbox.ShowCursor(true).AsCoroutine();
 
+        yield return _letterbox.ShowBottomText("Unknown unit approaching. Danger imminent.").AsCoroutine();
+        yield return _letterbox.ShowCursor(true).AsCoroutine();
+
         BossMusic.Play();
 
         Silhouette.enabled = false;
