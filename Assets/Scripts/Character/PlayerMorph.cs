@@ -6,6 +6,7 @@ using Licht.Unity.Builders;
 using Licht.Unity.Objects;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class PlayerMorph : SceneObject<PlayerMorph>
 {
     public SpriteRenderer RobotHead;

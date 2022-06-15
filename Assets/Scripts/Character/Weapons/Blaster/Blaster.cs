@@ -14,6 +14,7 @@ public class Blaster : BaseMovementController
     public ScriptableInputAction MainWeapon;
     public float CooldownInMs;
     public ProjectilePool BlasterPool;
+    public ProjectilePool EyeBlasterPool;
     public Vector2 Offset;
     public float ProjectileSpeed;
     public ScriptableFormComposition CharacterForm;
@@ -61,7 +62,10 @@ public class Blaster : BaseMovementController
             {
                 _player.MoveController.BlockMovement(this);
                 _player.JumpController.BlockMovement(this);
-                if (BlasterPool.TryGetFromPool(out var obj))
+
+                var pool = CharacterForm.Eyes.Form == ScriptableForm.CharacterForm.Human ? EyeBlasterPool : BlasterPool;
+
+                if (pool.TryGetFromPool(out var obj))
                 {
                     obj.Component.transform.position = transform.position + new Vector3(Offset.x * _player.MoveController.LatestDirection, Offset.y);
                     obj.Direction =

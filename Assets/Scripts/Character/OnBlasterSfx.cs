@@ -6,6 +6,9 @@ public class OnBlasterSfx : MonoBehaviour
     public RandomPitchAudio AudioSource;
     public RandomPitchAudio ImpactAudioSource;
 
+    public RandomPitchAudio EyeBlasterAudioSource;
+    public RandomPitchAudio EyeBlasterImpact;
+
     private Player _player;
     private void Awake()
     {
@@ -20,13 +23,21 @@ public class OnBlasterSfx : MonoBehaviour
 
     private void OnEvent(WeaponEventArgs args)
     {
-        AudioSource.Play();
+        if (_player.Form.Eyes.Form == ScriptableForm.CharacterForm.Human)
+        {
+            EyeBlasterAudioSource.Play();
+        }
+        else AudioSource.Play();
     }
 
     private void OnImpact(WeaponEventArgs args)
     {
         if (args.Source != _player.PhysicsObject) return;
-        ImpactAudioSource.Play();
+        if (_player.Form.Eyes.Form == ScriptableForm.CharacterForm.Human)
+        {
+            EyeBlasterImpact.Play();
+        }
+        else ImpactAudioSource.Play();
     }
 
     private void OnDisable()

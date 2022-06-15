@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8eb269d640b26742b9f0f37f2a60d53, type: 3}
-  m_Name: BlasterDamage
+  m_Name: EyeBlasterDamage
   m_EditorClassIdentifier: 
   DamageType: 0
-  DamageAmount: 8
+  DamageAmount: 16
