@@ -13,9 +13,11 @@ public abstract class UIAction : BaseObject
     public abstract void OnSelect(bool manual);
     public abstract void OnDeselect();
     public abstract void OnInit();
+    public virtual bool IsBlocked { get; }
 
     protected void OnEnable()
     {
+        if (IsBlocked) return;
         MenuContext.AddUIAction(this, Order);
         MenuContext.OnCursorMoved += MenuContext_OnCursorMoved;
         OnInit();

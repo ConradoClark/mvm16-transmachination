@@ -52,6 +52,8 @@ public class ClearGame : BaseObject
         Ending.gameObject.SetActive(true);
         CompletionText.text = $"Clear Completion: {rounded}%";
 
+        yield return TimeYields.WaitSeconds(GameTimer, 2);
+
         var any = _playerInput.actions["AnyKey"];
         while (!any.WasPerformedThisFrame())
         {

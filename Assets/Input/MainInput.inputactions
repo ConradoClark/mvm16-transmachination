@@ -217,6 +217,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1a9a9740-a76d-4103-9ae8-3f7abd5ac9cc",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "MainWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4b59b7aa-212f-4c87-b3b2-5d3a172489c7",
                     "path": "<Keyboard>/i",
                     "interactions": "",
@@ -503,6 +514,39 @@
                 },
                 {
                     "name": "1D Axis",
+                    "id": "d226ea36-59d6-4ff6-b001-b7e917103caa",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIHorizontal",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "b4804eb5-1dbe-46c2-8021-d3411e011766",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UIHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "53838226-a115-4250-a6f4-26a1c1c4c335",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UIHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
                     "id": "04e057ac-4b88-4c33-9034-6bf7b54e9a0d",
                     "path": "1DAxis",
                     "interactions": "",
@@ -601,6 +645,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "1D Axis",
+                    "id": "142659a4-8085-4fec-9ba3-85e4a22fb338",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIVertical",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "b8bab715-d132-407a-b66b-1e5692f1e038",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UIVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "fa9113b9-2fd6-45a5-98c8-b455fc51652e",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UIVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "1a7cc5b3-b84c-43a3-ba01-1a56c01e36a9",
                     "path": "<Keyboard>/j",
@@ -626,6 +703,17 @@
                     "name": "",
                     "id": "ea144a3b-6343-42ae-9ab5-7ec7070d6c1b",
                     "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UIAccept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "330728db-28cd-4d5f-a2a8-08e0275d7cac",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
